@@ -1,9 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useUser } from '@auth0/nextjs-auth0'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const { user, error, isLoading } = useUser();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -18,14 +21,13 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
+          {JSON.stringify(user)}
         </p>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
+            <h2>User info &rarr;</h2>
+            <p>...</p>
           </a>
 
           <a href="https://nextjs.org/learn" className={styles.card}>
