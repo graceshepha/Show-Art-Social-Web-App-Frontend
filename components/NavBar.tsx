@@ -36,7 +36,7 @@ export default function NavBar() {
           showArts
         </span>
       </div>
-      <div className="flex-1 px-2 mx-2 navbar-center">
+      <div className="flex-1 px-2 mx-2">
         <div className="items-stretch hidden lg:flex">
           {navigation.map((item) => (
             <ActiveLink activeClassName="active" key={item.href} href={item.href}>
@@ -47,9 +47,9 @@ export default function NavBar() {
           ))}
         </div>
       </div>
-      <div className="mt-3 flex -space-x-2 overflow-hidden navbar-end">
+      <div className="mt-3 flex space-x-2 navbar-end">
         <button className="btn">Sign In</button>
-        <div className="dropdown">
+        <div className="dropdown dropdown-left">
             <Image
               tabIndex={0}
               className="inline-block h-12 w-12 rounded-full ring-2 ring-white m-1 btn"
