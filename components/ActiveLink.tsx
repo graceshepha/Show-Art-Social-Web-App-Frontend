@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import PropTypes from 'prop-types'
 import Link, { LinkProps } from 'next/link'
 import React, { Children}  from 'react'
+import { NextPage } from 'next'
 
 /**
  * NavBar ActiveLink attribute set up
@@ -15,7 +16,11 @@ interface ActiveLinkProps extends React.PropsWithChildren<LinkProps>{
     children: JSX.Element[] | JSX.Element
 }
 
-const ActiveLink = ({children, activeClassName, ...props} : ActiveLinkProps) => {
+const ActiveLink: NextPage<ActiveLinkProps> = ({
+  children,
+  activeClassName,
+  ...props
+}) => {
   const { asPath } = useRouter();
   const child = Children.only(children);
   const childClassName = child.props.className || '';

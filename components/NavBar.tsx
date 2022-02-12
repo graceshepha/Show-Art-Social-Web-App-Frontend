@@ -1,6 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0';
-import Image from 'next/image';
 import ActiveLink from './ActiveLink'
+import NavBaritemProfile from './NavBarItemProfile';
 
 /**
  * NavBar Componenent
@@ -48,28 +48,15 @@ export default function NavBar() {
         </div>
       </div>
       <div className="mt-3 flex space-x-2 navbar-end">
-        <button className="btn">Sign In</button>
-        <div className="dropdown dropdown-left">
-            <Image
-              tabIndex={0}
-              className="inline-block h-12 w-12 rounded-full ring-2 ring-white m-1 btn"
-              src="https://i.pravatar.cc/500?img=32"
-              alt=''
-              width={48}
-              height={48}
-            />
-          <ul tabIndex={0} className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 2</a>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
-          </ul>
-        </div>
+        {!user ? (
+          <button className="btn">
+            <a href="/api/auth/login">
+              Sign In
+            </a>
+          </button>
+        ) : (
+          <NavBaritemProfile />
+        )}
       </div>
     </nav>
   )
