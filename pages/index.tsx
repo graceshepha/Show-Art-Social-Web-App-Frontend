@@ -1,8 +1,6 @@
-import { NextPage } from 'next'
-import Nav from '../components/NavBar'
-import { useUser } from '@auth0/nextjs-auth0'
-
-import NavBar from '../components/NavBar'
+import { NextPage } from 'next';
+import Nav from '../components/NavBar';
+import { useUser } from '@auth0/nextjs-auth0';
 
 const Home: NextPage = () => {
   const { user, error, isLoading } = useUser();
@@ -10,14 +8,11 @@ const Home: NextPage = () => {
   return (
     <div>
       <div>
-        <Nav/>
+        <Nav />
       </div>
-        <p>
-          {JSON.stringify(user)}
-        </p>
-
+      <p>{JSON.stringify(user)}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

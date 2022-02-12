@@ -1,9 +1,9 @@
 import { AfterCallback, handleAuth, handleCallback } from "@auth0/nextjs-auth0";
 
 type UserDetails = {
-  username: String;
-  email: String;
-  picture: String;
+  username: string;
+  email: string;
+  picture: string;
   email_verified: boolean;
 };
 
