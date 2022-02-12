@@ -1,16 +1,7 @@
 import { NextPage } from 'next'
 import Nav from '../components/NavBar'
-
-const Home: NextPage = () => (
-  <div>
-    <Nav/>
-    <p>Hello, Im the home page</p>
-  </div>
-)
-
-export default Home
-/* import type { NextPage } from 'next'
 import { useUser } from '@auth0/nextjs-auth0'
+
 import NavBar from '../components/NavBar'
 
 const Home: NextPage = () => {
@@ -19,7 +10,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <div>
-        <NavBar/>
+        <Nav/>
       </div>
         <p>
           {JSON.stringify(user)}
@@ -30,4 +21,3 @@ const Home: NextPage = () => {
 }
 
 export default Home
- */

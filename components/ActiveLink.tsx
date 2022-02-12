@@ -21,9 +21,7 @@ const ActiveLink = ({children, activeClassName, ...props} : ActiveLinkProps) => 
   const childClassName = child.props.className || '';
 
   const className =
-    asPath === props.href || asPath === props.as
-      ? `${childClassName} ${activeClassName}`.trim()
-      : childClassName;
+    asPath === props.href || asPath === props.as ? `${childClassName} ${activeClassName}`.trim(): childClassName;
 
   return (
     <Link {...props}>
