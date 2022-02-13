@@ -27,7 +27,7 @@ export default function NavBar() {
     <nav className="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
       <style jsx>{`
       .active {
-        font-weight: bold;
+        color: rgb(255 255 255);
       }
     `}
       </style>
@@ -40,14 +40,14 @@ export default function NavBar() {
         <div className="items-stretch hidden lg:flex">
           {navigation.map((item) => (
             <ActiveLink activeClassName="active" key={item.href} href={item.href}>
-              <a className="btn btn-ghost btn-sm rounded-btn">
+              <a className="btn btn-ghost btn-sm rounded-btn text-gray-400">
                 {item.name}
               </a>
             </ActiveLink>
           ))}
         </div>
       </div>
-      <div className="mt-3 flex space-x-2 navbar-end">
+      <div className="flex navbar-end mx-5">
         {!user ? (
           <button className="btn">
             <a href="/api/auth/login">
