@@ -40,7 +40,7 @@ export default function NavBar() {
         <div className="items-stretch hidden lg:flex">
           {navigation.map((item) => (
             <ActiveLink activeClassName="active" key={item.href} href={item.href}>
-              <a className="btn btn-ghost btn-sm rounded-btn text-gray-400">
+              <a className="btn btn-ghost btn-lg rounded-btn text-gray-400">
                 {item.name}
               </a>
             </ActiveLink>
@@ -48,6 +48,11 @@ export default function NavBar() {
         </div>
       </div>
       <div className="flex navbar-end mx-5">
+        <div className="flex-1 lg:flex-none">
+          <div className="form-control mx-8">
+            <input type="text" placeholder="Search" className="input input-ghost" />
+          </div>
+        </div>
         {!user ? (
           <button className="btn">
             <a href="/api/auth/login">
