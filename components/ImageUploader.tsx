@@ -1,14 +1,21 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 
 type ImageUploaderProps = {
   className?: string;
+  error?: string;
+  value?: File;
+  name?: string;
+  setValue: (v: File) => void;
 };
 
-const ImageUploader: NextPage<ImageUploaderProps> = ({ ...props }) => {
-  const [image, setImage] = useState<File | undefined>();
-
+const ImageUploader: NextPage<ImageUploaderProps> = ({
+  value,
+  name,
+  setValue,
+  ...props
+}) => {
   const onDropHandler: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
 
@@ -17,9 +24,9 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({ ...props }) => {
       : e.dataTransfer.files;
     if (files instanceof DataTransferItemList && files.length > 0) {
       const f = files[0].getAsFile();
-      if (f) setImage(f);
+      if (f) setValue(f);
     } else if (files instanceof FileList) {
-      setImage(files[0]);
+      setValue(files[0]);
     }
   };
 
@@ -28,7 +35,7 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({ ...props }) => {
 
     const files = e.target.files;
     if (files) {
-      setImage(files[0]);
+      setValue(files[0]);
     }
   };
 
@@ -40,7 +47,7 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({ ...props }) => {
     >
       <div className="space-y-1 text-center">
         <div className="pb-3">
-          {!image ? (
+          {!value ? (
             <svg
               className="mx-auto h-12 w-12 text-gray-400"
               stroke="currentColor"
@@ -56,13 +63,17 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({ ...props }) => {
               />
             </svg>
           ) : (
-            <Image
-              layout="fill"
-              objectFit="scale-down"
-              src={URL.createObjectURL(image)}
-              alt={image.name}
-              className="max-h-3"
-            ></Image>
+            <div className="image-container">
+              <Image
+                layout="responsive"
+                objectFit="scale-down"
+                width={200}
+                height={200}
+                src={URL.createObjectURL(value)}
+                alt={value.name}
+                className="object-contain relative h-auto w-max"
+              />
+            </div>
           )}
         </div>
         <div className="flex text-sm text-gray-600">
@@ -73,8 +84,9 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({ ...props }) => {
             <span>Upload a file</span>
             <input
               id="file-upload"
-              name="file-upload"
+              name={name}
               type="file"
+              accept="image/*"
               className="sr-only"
               onChange={onChangeHandler}
             />
@@ -82,6 +94,7 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({ ...props }) => {
           <p className="pl-1">or drag and drop</p>
         </div>
         <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+        <p className="label-text-alt text-error">{props.error}</p>
       </div>
     </div>
   );

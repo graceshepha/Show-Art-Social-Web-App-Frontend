@@ -1,5 +1,6 @@
-import Navbar from '../components/NavBar';
 import React, { ReactNode } from 'react';
+import Head from 'next/head';
+import Navbar from '../components/NavBar';
 
 /**
  * @description
@@ -11,10 +12,18 @@ import React, { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
+  title?: string;
+  description?: string;
 };
 
-const Layout = ({ children }: Props) => (
+const siteTitle = 'Art showcase';
+
+const Layout = ({ children, title, description }: Props) => (
   <>
+    <Head>
+      <title>{title ? `${title} - ${siteTitle}` : siteTitle}</title>
+      <meta name="description" content={description} />
+    </Head>
     <Navbar />
     <main>{children}</main>
   </>
