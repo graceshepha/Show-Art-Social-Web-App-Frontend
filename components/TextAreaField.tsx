@@ -2,15 +2,16 @@ import React from 'react';
 import { NextPage } from 'next';
 import classNames from 'classnames';
 
-interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface TextAreaFieldProps
+  extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   placeholder?: string;
   helper?: string;
   error?: string | string[];
 }
 
-const getClasses = ({ className, error }: TextFieldProps) => {
+const getClasses = ({ className, error }: TextAreaFieldProps) => {
   return classNames({
-    input: !className?.match(/input(\s|$)/),
+    textarea: !className?.match(/textarea(\s|$)/),
     [className || '']: true,
     'input-error': !!error,
   });
@@ -18,7 +19,10 @@ const getClasses = ({ className, error }: TextFieldProps) => {
 
 type ChildProps = React.HTMLAttributes<HTMLElement>;
 
-const TextField: NextPage<TextFieldProps> = ({ children, ...props }) => {
+const TextAreaField: NextPage<TextAreaFieldProps> = ({
+  children,
+  ...props
+}) => {
   // child
   const child = children
     ? children instanceof String
@@ -42,8 +46,8 @@ const TextField: NextPage<TextFieldProps> = ({ children, ...props }) => {
           <span className="label-text-alt">{child}</span>
         )}
       </label>
-      {React.createElement<React.InputHTMLAttributes<HTMLInputElement>>(
-        'input',
+      {React.createElement<React.InputHTMLAttributes<HTMLTextAreaElement>>(
+        'textarea',
         { ...props, className: getClasses(props) }
       )}
       <label className="label">
@@ -54,4 +58,4 @@ const TextField: NextPage<TextFieldProps> = ({ children, ...props }) => {
   );
 };
 
-export default TextField;
+export default TextAreaField;

@@ -4,9 +4,11 @@ import React from 'react';
 
 type ImageUploaderProps = {
   className?: string;
-  error?: string;
+  error?: string | string[];
   value?: File;
   name?: string;
+  maxSize?: number;
+  accept?: string;
   setValue: (v: File) => void;
 };
 
@@ -14,6 +16,8 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({
   value,
   name,
   setValue,
+  maxSize = 10,
+  accept,
   ...props
 }) => {
   const onDropHandler: React.DragEventHandler<HTMLDivElement> = (e) => {
@@ -86,14 +90,14 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({
               id="file-upload"
               name={name}
               type="file"
-              accept="image/*"
+              accept={accept ? accept : 'image/*'}
               className="sr-only"
               onChange={onChangeHandler}
             />
           </label>
           <p className="pl-1">or drag and drop</p>
         </div>
-        <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+        <p className="text-xs text-gray-500">PNG, JPG, GIF up to {maxSize}MB</p>
         <p className="label-text-alt text-error">{props.error}</p>
       </div>
     </div>

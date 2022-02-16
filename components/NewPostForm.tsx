@@ -5,14 +5,18 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ImageUploader from './ImageUploader';
 import TextField from './TextField';
+import TextAreaField from './TextAreaField';
+import { useRouter } from 'next/router';
 
 type NewPostFormProps = React.FormHTMLAttributes<HTMLFormElement>;
 
 const TITLE = 'Create a new post';
-const FILE_SIZE = 16 * 1024;
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+const MAX_SIZE = 10; // IN MB
+const FILE_SIZE = MAX_SIZE * 1024 * 1024;
+const SUPPORTED_FORMATS = ['image/jpeg', 'image/gif', 'image/png'];
 
 const NewPostForm: NextPage<NewPostFormProps> = ({ ...props }) => {
+  const router = useRouter();
   const [submitted, setSubmitted] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
@@ -20,7 +24,7 @@ const NewPostForm: NextPage<NewPostFormProps> = ({ ...props }) => {
       image: undefined,
       description: '',
       // visibility: 'public',
-      tags: [],
+      tags: ['tag1'],
     },
     validationSchema: Yup.object().shape({
       title: Yup.string()
@@ -47,23 +51,60 @@ const NewPostForm: NextPage<NewPostFormProps> = ({ ...props }) => {
       console.log('SUCCESS', v);
     },
   });
+
+  const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    router.push('/');
+  };
+
   return (
     <>
       <Head>
         <title>
           {!formik.isValid
-            ? `${Object.keys(formik.errors).length} - ${TITLE}`
+            ? `(${Object.keys(formik.errors).length}) ${TITLE}`
             : TITLE}
         </title>
       </Head>
       <form {...props} onSubmit={formik.handleSubmit}>
+        <TextField
+          name="title"
+          value={formik.values.title}
+          onChange={formik.handleChange}
+          error={formik.errors.title}
+          className="input input-bordered"
+        >
+          Title
+        </TextField>
+        <TextAreaField
+          name="description"
+          value={formik.values.description}
+          onChange={formik.handleChange}
+          error={formik.errors.description}
+          className="textarea textarea-bordered"
+        >
+          Description
+        </TextAreaField>
         <ImageUploader
           name="image"
           value={formik.values.image}
           setValue={(v: File) => formik.setFieldValue('image', v)}
-          error={(formik.dirty && formik.errors.image) || ''}
+          error={formik.errors.image}
+          accept={SUPPORTED_FORMATS.join()}
+          maxSize={MAX_SIZE}
         />
-        <button type="submit">ok</button>
+        <div className="mt-2 p-2 space-x-2">
+          <button type="submit" className="btn btn-accent">
+            Add post
+          </button>
+          <button
+            type="button"
+            className="btn btn-error"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </>
   );
