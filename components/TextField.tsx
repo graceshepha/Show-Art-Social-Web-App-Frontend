@@ -2,29 +2,15 @@ import React from 'react';
 import { NextPage } from 'next';
 import classNames from 'classnames';
 
-interface TextFieldProps extends React.HTMLAttributes<HTMLInputElement> {
-  size?: 'lg' | 'md' | 'sm' | 'xs';
-  variant?: 'bordered' | 'ghost';
-  accent?:
-    | 'primary'
-    | 'secondary'
-    | 'accent'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'error';
+interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
   helper?: string;
-  rounded?: boolean;
 }
 
-const classes = ({ size, variant, accent, rounded }: TextFieldProps) => {
+const getClasses = ({ className }: TextFieldProps) => {
   return classNames({
-    input: true,
-    [`input-${size}`]: !!size && size !== 'md',
-    [`input-${variant}`]: !!variant,
-    [`input-${accent}`]: !!accent,
-    'rounded-full': !!rounded,
+    input: !className?.match(/input(\s|$)/),
+    [className || '']: true,
   });
 };
 
@@ -54,11 +40,10 @@ const TextField: NextPage<TextFieldProps> = ({ children, ...props }) => {
           <span className="label-text-alt">{child}</span>
         )}
       </label>
-      <input
-        type="text"
-        placeholder={props.placeholder}
-        className={classes(props)}
-      />
+      {React.createElement<React.InputHTMLAttributes<HTMLInputElement>>(
+        'input',
+        { ...props, className: getClasses(props) }
+      )}
       {props.helper && (
         <label className="label">
           <span className="label-text-alt">{props.helper}</span>
