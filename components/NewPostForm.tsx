@@ -1,5 +1,4 @@
 import React from 'react';
-import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useFormik, FormikHelpers } from 'formik';
@@ -20,18 +19,28 @@ export type FormikHandleSubmit = (
   h: FormikHelpers<FormValues>
 ) => void;
 
-type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
-
-interface Props extends Omit<FormProps, 'onSubmit'> {
+type NewPostFormProps = Omit<
+  React.ComponentPropsWithoutRef<'form'>,
+  'onSubmit'
+> & {
   onSubmit: FormikHandleSubmit;
-}
+};
+
+type NewPostForm = (
+  props: NewPostFormProps
+) => React.ReactElement<NewPostFormProps>;
 
 const TITLE = 'Create a new post';
 const MAX_SIZE = 10; // IN MB
 const FILE_SIZE = MAX_SIZE * 1024 * 1024;
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/gif', 'image/png'];
 
-const NewPostForm: NextPage<Props> = ({ onSubmit, ...props }) => {
+/**
+ * Composant du formulaire utilisé pour ajouter une publication
+ *
+ * @author Roger Montero
+ */
+const NewPostForm: NewPostForm = ({ onSubmit, ...props }) => {
   const router = useRouter();
 
   const formik = useFormik<FormValues>({
