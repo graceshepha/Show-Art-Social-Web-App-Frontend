@@ -1,13 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
-import ActiveLink from './ActiveLink';
-import NavBaritemProfile from './NavBarItemProfile';
-
-/**
- * NavBar Componenent
- *
- * @author Bly Grâce Schephatia
- */
+import ActiveLink from '@/ActiveLink';
+import NavBaritemProfile from '@/NavBarItemProfile';
 
 type navItem = {
   name: string;
@@ -16,22 +10,20 @@ type navItem = {
 
 const navigation: navItem[] = [
   { name: 'Home', href: '/' },
-  { name: 'Arts', href: '/arts' },
-  { name: 'Topis', href: '/topics' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'Topics', href: '/topics' },
 ];
 
+/**
+ * NavBar Componenent
+ *
+ * @author Bly Grâce Schephatia
+ */
 export default function NavBar() {
   const { user } = useUser();
 
   return (
     <nav className="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
-      <style jsx>
-        {`
-          .active {
-            color: rgb(255 255 255);
-          }
-        `}
-      </style>
       <div className="flex-none px-2 mx-2">
         <span className="text-lg font-bold">showArts</span>
       </div>

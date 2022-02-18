@@ -1,7 +1,7 @@
-import '../styles/globals.css';
+import 'styles/globals.css';
 import { AppProps } from 'next/app';
 import { UserProvider } from '@auth0/nextjs-auth0';
-import Layout from '../components/Layout';
+import Layout from '@/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

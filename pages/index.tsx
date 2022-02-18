@@ -1,7 +1,5 @@
 import { NextPage } from 'next';
 import { useUser } from '@auth0/nextjs-auth0';
-import Layout from '../components/Layout';
-import NewPost from '../components/NewPostForm';
 
 const Home: NextPage = () => {
   const { user, error, isLoading } = useUser();

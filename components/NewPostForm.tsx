@@ -1,12 +1,12 @@
 import React from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import ImageUploaderField from './FormFields/ImageUploaderField';
-import InputTextField from './FormFields/InputTextField';
-import TextAreaField from './FormFields/TextAreaField';
-import { useRouter } from 'next/router';
+import ImageUploaderField from '@/FormFields/ImageUploaderField';
+import InputTextField from '@/FormFields/InputTextField';
+import TextAreaField from '@/FormFields/TextAreaField';
 
 type FormValues = {
   title: string;

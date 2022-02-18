@@ -1,20 +1,18 @@
-import { useRouter } from 'next/router';
-import Link, { LinkProps } from 'next/link';
 import React, { Children } from 'react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import Link, { LinkProps } from 'next/link';
+
+type ActiveLinkProps = LinkProps & {
+  activeClassName: string;
+  children: React.ReactElement<HTMLElement>;
+};
 
 /**
  * NavBar ActiveLink attribute set up
  *
  * @author Bly, Grâce Schephatia
- * @
  */
-
-interface ActiveLinkProps extends React.PropsWithChildren<LinkProps> {
-  activeClassName: string;
-  children: React.ReactElement<HTMLElement>;
-}
-
 const ActiveLink: NextPage<ActiveLinkProps> = ({
   children,
   activeClassName,
