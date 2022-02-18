@@ -1,16 +1,19 @@
 import React from 'react';
-import { NextPage } from 'next';
 import Image from 'next/image';
 
-type Props = {
-  className?: string;
-  error?: string | string[];
-  value?: File;
+type ImageUploaderFieldProps = {
   name: string;
+  className?: string;
+  value?: File;
   maxSize?: number;
   accept?: string;
-  setValue: (v: File) => void;
+  onChange: (v: File) => void;
+  error?: string | string[];
 };
+
+type ImageUploaderField = (
+  props: ImageUploaderFieldProps
+) => React.ReactElement<ImageUploaderField>;
 
 const PREVIEW_SIZE = 200;
 
@@ -19,10 +22,10 @@ const PREVIEW_SIZE = 200;
  *
  * @author Roger Montero
  */
-const ImageUploaderField: NextPage<Props> = ({
+const ImageUploaderField: ImageUploaderField = ({
   value,
   name,
-  setValue,
+  onChange,
   maxSize = 10,
   accept,
   ...props
@@ -35,9 +38,9 @@ const ImageUploaderField: NextPage<Props> = ({
       : e.dataTransfer.files;
     if (files instanceof DataTransferItemList && files.length > 0) {
       const f = files[0].getAsFile();
-      if (f) setValue(f);
+      if (f) onChange(f);
     } else if (files instanceof FileList) {
-      setValue(files[0]);
+      onChange(files[0]);
     }
   };
 
@@ -46,7 +49,7 @@ const ImageUploaderField: NextPage<Props> = ({
 
     const files = e.target.files;
     if (files) {
-      setValue(files[0]);
+      onChange(files[0]);
     }
   };
 

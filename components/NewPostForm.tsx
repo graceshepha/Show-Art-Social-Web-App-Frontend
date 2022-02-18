@@ -15,7 +15,10 @@ type FormValues = {
   tags: string[];
 };
 
-type FormikHandleSubmit = (v: FormValues, h: FormikHelpers<FormValues>) => void;
+export type FormikHandleSubmit = (
+  v: FormValues,
+  h: FormikHelpers<FormValues>
+) => void;
 
 type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
 
@@ -37,7 +40,7 @@ const NewPostForm: NextPage<Props> = ({ onSubmit, ...props }) => {
       image: undefined,
       description: '',
       // visibility: 'public',
-      tags: ['tag1'], // not important right now
+      tags: ['tag1', 'hey'], // not important right now
     },
     validationSchema: Yup.object().shape({
       title: Yup.string()
@@ -98,7 +101,7 @@ const NewPostForm: NextPage<Props> = ({ onSubmit, ...props }) => {
         <ImageUploaderField
           name="image"
           value={formik.values.image}
-          setValue={(v: File) => formik.setFieldValue('image', v)}
+          onChange={(v: File) => formik.setFieldValue('image', v)}
           error={formik.errors.image}
           accept={SUPPORTED_FORMATS.join()}
           maxSize={MAX_SIZE}

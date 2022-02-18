@@ -1,17 +1,5 @@
 import React from 'react';
-import { NextPage } from 'next';
 import classNames from 'classnames';
-
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
-
-type HtmlProps = React.HTMLAttributes<HTMLElement>;
-
-interface Props extends InputProps {
-  placeholder?: string;
-  helper?: string;
-  error?: string | string[];
-  name: string;
-}
 
 type GetClasses = (v: {
   className?: string;
@@ -27,34 +15,43 @@ const getClasses: GetClasses = ({ className, error }) => {
   });
 };
 
+type InputTextFieldProps = Omit<
+  React.ComponentPropsWithoutRef<'input'>,
+  'children'
+> & {
+  name: string;
+  placeholder?: string;
+  helper?: string;
+  error?: string | string[];
+  children?: React.ReactElement | string;
+};
+
+type InputTextField = (props: InputTextFieldProps) => React.ReactElement<'div'>;
+
 /**
  * Composant input d'un formulaire
  *
  * @author Roger Montero
  */
-const InputTextField: NextPage<Props> = ({ children, ...props }) => {
-  // child
-  const child = children
-    ? children instanceof String
-      ? React.Children.only(children)
-      : children
-    : '';
+const InputTextField: InputTextField = ({ children, ...props }) => {
+  const isElem = !!children && typeof children !== 'string';
 
   // child classes
-  const childClasses = React.isValidElement<HtmlProps>(child)
-    ? `label-text-alt ${(child.props.className || '').trim()}`
-    : 'label-text-alt';
+  const childClasses = `label-text-alt ${(isElem && children.props?.className
+    ? children.props.className
+    : ''
+  ).trim()}`;
 
   return (
     <div className="form-control">
       <label className="label" htmlFor={`input-${props.name}`}>
-        {React.isValidElement<HtmlProps>(child) ? (
-          React.cloneElement(child, { className: childClasses })
+        {isElem ? (
+          React.cloneElement(children, { className: childClasses })
         ) : (
-          <span className={childClasses}>{child}</span>
+          <span className={childClasses}>{children}</span>
         )}
       </label>
-      {React.createElement<InputProps>('input', {
+      {React.createElement<InputTextFieldProps>('input', {
         ...props,
         id: `input-${props.name}`,
         className: getClasses(props),
