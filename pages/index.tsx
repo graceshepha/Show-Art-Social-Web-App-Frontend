@@ -11,7 +11,6 @@ const Home: NextPage = () => {
   return (
     <div>
       <p>{JSON.stringify(user)}</p>
-      <NewPost />
     </div>
   );
 };

@@ -3,9 +3,9 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import ImageUploader from './ImageUploader';
-import TextField from './TextField';
-import TextAreaField from './TextAreaField';
+import ImageUploaderField from './FormFields/ImageUploaderField';
+import InputTextField from './FormFields/InputTextField';
+import TextAreaField from './FormFields/TextAreaField';
 import { useRouter } from 'next/router';
 
 type FormValues = {
@@ -15,8 +15,12 @@ type FormValues = {
   tags: string[];
 };
 
-interface NewPostFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
-  handleSubmit: (v: FormValues, h: FormikHelpers<FormValues>) => void;
+type FormikHandleSubmit = (v: FormValues, h: FormikHelpers<FormValues>) => void;
+
+type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
+
+interface Props extends Omit<FormProps, 'onSubmit'> {
+  onSubmit: FormikHandleSubmit;
 }
 
 const TITLE = 'Create a new post';
@@ -24,18 +28,16 @@ const MAX_SIZE = 10; // IN MB
 const FILE_SIZE = MAX_SIZE * 1024 * 1024;
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/gif', 'image/png'];
 
-const NewPostForm: NextPage<NewPostFormProps> = ({
-  handleSubmit,
-  ...props
-}) => {
+const NewPostForm: NextPage<Props> = ({ onSubmit, ...props }) => {
   const router = useRouter();
+
   const formik = useFormik<FormValues>({
     initialValues: {
       title: '',
       image: undefined,
       description: '',
       // visibility: 'public',
-      tags: ['tag1'],
+      tags: ['tag1'], // not important right now
     },
     validationSchema: Yup.object().shape({
       title: Yup.string()
@@ -57,7 +59,7 @@ const NewPostForm: NextPage<NewPostFormProps> = ({
       description: Yup.string().notRequired().trim(),
       tags: Yup.array(Yup.string()).min(1),
     }),
-    onSubmit: handleSubmit,
+    onSubmit: onSubmit,
   });
 
   const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -75,7 +77,7 @@ const NewPostForm: NextPage<NewPostFormProps> = ({
         </title>
       </Head>
       <form {...props} onSubmit={formik.handleSubmit}>
-        <TextField
+        <InputTextField
           name="title"
           value={formik.values.title}
           onChange={formik.handleChange}
@@ -83,7 +85,7 @@ const NewPostForm: NextPage<NewPostFormProps> = ({
           className="input input-bordered"
         >
           Title
-        </TextField>
+        </InputTextField>
         <TextAreaField
           name="description"
           value={formik.values.description}
@@ -93,7 +95,7 @@ const NewPostForm: NextPage<NewPostFormProps> = ({
         >
           Description
         </TextAreaField>
-        <ImageUploader
+        <ImageUploaderField
           name="image"
           value={formik.values.image}
           setValue={(v: File) => formik.setFieldValue('image', v)}

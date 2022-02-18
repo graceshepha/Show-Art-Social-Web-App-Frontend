@@ -2,17 +2,24 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import React from 'react';
 
-type ImageUploaderProps = {
+type Props = {
   className?: string;
   error?: string | string[];
   value?: File;
-  name?: string;
+  name: string;
   maxSize?: number;
   accept?: string;
   setValue: (v: File) => void;
 };
 
-const ImageUploader: NextPage<ImageUploaderProps> = ({
+const PREVIEW_SIZE = 200;
+
+/**
+ * Composant file input d'un formulaire, utilisé pour upload une image
+ *
+ * @author Roger Montero
+ */
+const ImageUploaderField: NextPage<Props> = ({
   value,
   name,
   setValue,
@@ -71,8 +78,8 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({
               <Image
                 layout="responsive"
                 objectFit="scale-down"
-                width={200}
-                height={200}
+                width={PREVIEW_SIZE}
+                height={PREVIEW_SIZE}
                 src={URL.createObjectURL(value)}
                 alt={value.name}
                 className="object-contain relative h-auto w-max"
@@ -82,12 +89,12 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({
         </div>
         <div className="flex text-sm text-gray-600">
           <label
-            htmlFor="file-upload"
+            htmlFor={`file-upload-${name}`}
             className="relative cursor-pointer rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
           >
             <span>Upload a file</span>
             <input
-              id="file-upload"
+              id={`file-upload-${name}`}
               name={name}
               type="file"
               accept={accept ? accept : 'image/*'}
@@ -104,4 +111,4 @@ const ImageUploader: NextPage<ImageUploaderProps> = ({
   );
 };
 
-export default ImageUploader;
+export default ImageUploaderField;
