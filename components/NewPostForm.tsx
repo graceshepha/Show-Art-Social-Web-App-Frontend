@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { useFormik } from 'formik';
+import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import ImageUploader from './ImageUploader';
 import TextField from './TextField';
 import TextAreaField from './TextAreaField';
 import { useRouter } from 'next/router';
 
-type NewPostFormProps = React.FormHTMLAttributes<HTMLFormElement>;
+type FormValues = {
+  title: string;
+  image?: File;
+  description: string;
+  tags: string[];
+};
+
+interface NewPostFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+  handleSubmit: (v: FormValues, h: FormikHelpers<FormValues>) => void;
+}
 
 const TITLE = 'Create a new post';
 const MAX_SIZE = 10; // IN MB
 const FILE_SIZE = MAX_SIZE * 1024 * 1024;
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/gif', 'image/png'];
 
-const NewPostForm: NextPage<NewPostFormProps> = ({ ...props }) => {
+const NewPostForm: NextPage<NewPostFormProps> = ({
+  handleSubmit,
+  ...props
+}) => {
   const router = useRouter();
-  const [submitted, setSubmitted] = useState<boolean>(false);
-  const formik = useFormik({
+  const formik = useFormik<FormValues>({
     initialValues: {
       title: '',
       image: undefined,
@@ -46,10 +57,7 @@ const NewPostForm: NextPage<NewPostFormProps> = ({ ...props }) => {
       description: Yup.string().notRequired().trim(),
       tags: Yup.array(Yup.string()).min(1),
     }),
-    onSubmit: (v) => {
-      setSubmitted(true);
-      console.log('SUCCESS', v);
-    },
+    onSubmit: handleSubmit,
   });
 
   const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
