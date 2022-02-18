@@ -1,9 +1,6 @@
 import { AfterCallback, handleAuth, handleCallback } from '@auth0/nextjs-auth0';
-import getConfig from 'next/config';
 import axios from 'axios';
-import { BACKEND_URL } from '../../../constants';
-
-const config = getConfig();
+import { BACKEND_USERS } from 'constants/api';
 
 type UserDetails = {
   username: string;
@@ -32,15 +29,17 @@ const afterCallback: AfterCallback = (req, res, session, state) => {
     email_verified: emailVerified,
   } = session.user;
 
-  axios
-    .post(`${BACKEND_URL}/api/u/add`, {
+  try {
+    const r = axios.post(`${BACKEND_USERS}/add`, {
       username,
       email,
       picture,
       emailVerified,
-    })
-    .then((v) => console.log(v))
-    .catch((e) => console.error(e));
+    });
+    console.log(r);
+  } catch (err) {
+    console.error(err);
+  }
   return session;
 };
 

@@ -1,6 +1,7 @@
-import { BACKEND_POSTS } from 'constants/index';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getAccessToken } from '@auth0/nextjs-auth0';
 import httpProxyMiddleware from 'next-http-proxy-middleware';
+import { BACKEND_POSTS } from 'constants/api';
 
 export const config = {
   api: {
@@ -20,17 +21,15 @@ type BodyError = {
 
 type ResBody = BodyData | BodyError;
 
-type RequestExtended = Omit<NextApiRequest, 'body'> & {
-  body: BodyData;
-};
-
 const endpoint = async (req: NextApiRequest, res: NextApiResponse<ResBody>) => {
+  const { accessToken } = await getAccessToken(req, res);
+  req.headers.authorization = `Bearer ${accessToken}`; // i think
   httpProxyMiddleware(req, res, {
     target: `${BACKEND_POSTS}`,
     pathRewrite: [
       {
-        patternStr: '^/api/post/new',
-        replaceStr: '/add',
+        patternStr: '^/post/new',
+        replaceStr: '/p/add',
       },
     ],
   });
