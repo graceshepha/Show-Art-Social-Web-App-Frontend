@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     try {
       const req = await axios({
         method: 'POST',
-        url: '/api/post/new',
+        url: '/api/posts/new',
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
       });

@@ -1,18 +1,28 @@
 import { NextPage } from 'next';
+import useSWRInfinite from 'swr/infinite';
+import axiosApi from 'utils/axiosApi';
+import ListPosts from '@/ListPosts';
 
-// Declaring type of props - see "Typing Component Props" for more examples
-type GalleryPageProps = {
-  message: string;
-}; /* use `interface` if exporting so that consumers can extend */
+type KeyLoader = InfiniteKeyLoader<PaginatedPosts>;
+type Fetcher = InfiniteFetcher<PaginatedPosts, KeyLoader>;
 
-// Easiest way to declare a Function Component; return type is inferred.
+const getKey: KeyLoader = (pageIndex, previousPageData) => {
+  console.log(previousPageData);
+  if (pageIndex === 0 || !previousPageData) return `/api/posts`;
+  if (!previousPageData.hasNextPage) return null;
+  return `/api/posts?p=${previousPageData.nextPage}`;
+};
 
-const GalleryPage: NextPage<GalleryPageProps> = ({ message }) => {
+const fetcher: Fetcher = (url) => axiosApi.get(url).then((res) => res.data);
+
+const GalleryPage: NextPage = () => {
+  const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher);
   return (
     <>
-      <div>
+      <div className="lg:mx-auto px-8 py-4">
         <p>Gallery page</p>
-        <p>{message}</p>
+        <ListPosts pages={data} />
+        <button onClick={() => setSize(size + 1)}>Load More</button>
       </div>
     </>
   );

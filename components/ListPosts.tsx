@@ -2,7 +2,7 @@ import React from 'react';
 import PostCard from '@/PostCard';
 
 type ListPostsProps = {
-  posts: [];
+  pages?: PaginatedPosts[];
 };
 
 type ListPosts = (props: ListPostsProps) => React.ReactElement<ListPostsProps>;
@@ -12,14 +12,17 @@ type ListPosts = (props: ListPostsProps) => React.ReactElement<ListPostsProps>;
  *
  * @author Roger Montero
  */
-const ListPosts: ListPosts = ({ ...props }) => {
+const ListPosts: ListPosts = ({ pages }) => {
   return (
-    <>
-      posts:{' '}
-      {props.posts.map((p, i) => (
-        <PostCard key={i} example={p} />
-      ))}
-    </>
+    <div className="relative bg-slate-50 dark:bg-slate-800 rounded-xl p-5">
+      <div className="gap-2 columns-1 md:columns-3 space-y-8 w-full">
+        {pages?.map((page) => {
+          return page.docs.map((p) => (
+            <PostCard key={p.id} example={p.title} />
+          ));
+        })}
+      </div>
+    </div>
   );
 };
 

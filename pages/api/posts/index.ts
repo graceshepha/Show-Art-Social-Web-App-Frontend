@@ -7,13 +7,13 @@ type Data = {
 };
 
 const endpoint = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const { p = '1' } = req.query;
+  const { p } = req.query;
   const page = typeof p === 'string' ? parseInt(p, 10) : 1;
 
   try {
     const r = await axios.get(BACKEND_POSTS, { params: { page } });
-    console.log(r.data);
-    res.status(200).json(r.data.docs);
+    // console.log(r.data);
+    res.status(200).json(r.data);
   } catch (err) {
     console.error(err);
   }
