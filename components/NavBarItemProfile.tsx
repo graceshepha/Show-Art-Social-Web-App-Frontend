@@ -31,7 +31,7 @@ const NavBaritemProfile = () => {
           <a>Your profile</a>
         </li>
         <li className="text-white">
-          <Link href="/api/auth/logout">Sign Out</Link>
+          <a href="/api/auth/logout">Sign Out</a>
         </li>
       </ul>
     </div>

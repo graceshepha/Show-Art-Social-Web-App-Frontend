@@ -54,7 +54,7 @@ export default function NavBar() {
         </div>
         {!user ? (
           <button className="btn">
-            <Link href="/api/auth/login">Sign In</Link>
+            <a href="/api/auth/login">Sign In</a>
           </button>
         ) : (
           <NavBaritemProfile />

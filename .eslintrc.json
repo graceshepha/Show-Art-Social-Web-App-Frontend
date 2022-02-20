@@ -6,7 +6,8 @@
     "prettier"
   ],
   "rules": {
-    "import/no-unresolved": "error"
+    "import/no-unresolved": "error",
+    "@next/next/no-html-link-for-pages": "warn"
   },
   "settings": {
     "import/parsers": {

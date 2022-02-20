@@ -4,12 +4,21 @@ const nextConfig = {
   images: {
     domains: ['tailwindui.com', 'images.unsplash.com', 's.gravatar.com'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/u/:username/posts',
+        destination: '/u/:username',
+        permanent: true,
+      }
+    ]
+  },
   async rewrites() {
     return {
       beforeFiles: [
         {
           source: '/assets/:path*',
-          destination: 'http://localhost:8080/assets/:path*'
+          destination: `${process.env.NEXT_PUBLIC_BACKEND_API}/assets/:path*`,
         }
       ]
     }
