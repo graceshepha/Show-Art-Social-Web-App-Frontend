@@ -1,4 +1,9 @@
-import { AfterCallback, handleAuth, handleCallback } from '@auth0/nextjs-auth0';
+import {
+  AfterCallback,
+  handleAuth,
+  handleCallback,
+  UserProfile,
+} from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { axiosBackend } from 'utils/axiosApi';
 
@@ -15,19 +20,19 @@ import { axiosBackend } from 'utils/axiosApi';
  */
 
 const afterCallback: AfterCallback = async (req, res, session) => {
-  const {
-    nickname: username,
-    email,
-    picture,
-    email_verified: emailVerified,
-  } = session.user;
+  const user: UserProfile = session.user;
+  const body = {
+    username: user.nickname,
+    email: user.email,
+    picture: user.picture,
+    emailVerified: user.email_verified,
+  };
 
   try {
-    const r = await axiosBackend.post('/u/add', {
-      username,
-      email,
-      picture,
-      emailVerified,
+    const r = await axiosBackend.post('/api/u/login', body, {
+      headers: {
+        Authorization: `Bearer ${session.accessToken}`,
+      },
     });
     console.debug(r.data); // get returned data
   } catch (err) {

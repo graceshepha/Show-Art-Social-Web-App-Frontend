@@ -25,13 +25,13 @@ const handleProxy = async (req: NextApiRequest, res: NextApiResponse) => {
   const { accessToken } = await getAccessToken(req, res, {
     scopes: ['openid', 'profile', 'email'],
   });
-  req.headers.authorization = `Bearer ${accessToken}`; // i think
+  req.headers.authorization = `Bearer ${accessToken}`;
   httpProxyMiddleware(req, res, {
     target: BACKEND_URL,
     pathRewrite: [
       {
         patternStr: '^/api/posts/new',
-        replaceStr: '/api/p/add',
+        replaceStr: '/api/p',
       },
     ],
   });
