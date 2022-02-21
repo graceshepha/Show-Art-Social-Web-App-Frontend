@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import axios from 'axios';
+import { testErrors } from 'utils/api/common';
 // import { axiosBackend } from 'utils/axiosApi';
 
 // type ResponseData = {
@@ -32,14 +32,8 @@ const endpoint = async (
     return res.status(200).json({ postid });
   } catch (err) {
     console.error(err);
-    if (axios.isAxiosError(err)) {
-      const status = err?.response?.status || 500;
-      return res.status(status).json({ status, error: err.message });
-    } else if (err instanceof Error) {
-      return res.status(500).json({ status: 500, error: err.message });
-    } else {
-      return res.status(500).json({ status: 500, error: 'Unknown error' });
-    }
+    const e = testErrors(err);
+    res.status(e.status).json(e);
   }
 };
 

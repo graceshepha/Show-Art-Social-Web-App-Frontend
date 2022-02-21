@@ -1,6 +1,6 @@
+import { testErrors } from './../../../utils/api/common';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import axios from 'axios';
-import { axiosBackend } from 'utils/axiosApi';
+import { getPostPage } from 'utils/api/posts';
 
 type ResponseData = PaginatedPosts;
 
@@ -15,24 +15,18 @@ const endpoint = async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseBody>
 ) => {
+  // get number page
   const { p } = req.query;
-  const page = typeof p === 'string' ? parseInt(p, 10) : 1;
+  let page = typeof p === 'string' ? parseInt(p, 10) : 1;
+  if (Number.isNaN(page)) page = 1;
 
   try {
-    const r = await axiosBackend.get('/api/p', { params: { page } });
-    const data: ResponseData = r.data;
-
-    return res.status(200).json(data);
+    const posts = await getPostPage(page);
+    return res.status(200).json(posts);
   } catch (err) {
-    console.error(err);
-    if (axios.isAxiosError(err)) {
-      const status = err?.response?.status || 500;
-      return res.status(status).json({ status, error: err.message });
-    } else if (err instanceof Error) {
-      return res.status(500).json({ status: 500, error: err.message });
-    } else {
-      return res.status(500).json({ status: 500, error: 'Unknown error' });
-    }
+    // console.error(err);
+    const e = testErrors(err);
+    res.status(e.status).json(e);
   }
 };
 export default endpoint;

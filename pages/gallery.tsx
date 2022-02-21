@@ -3,17 +3,19 @@ import useSWRInfinite from 'swr/infinite';
 import { axiosApi } from 'utils/axiosApi';
 import ListPosts from '@/ListPosts';
 
-type KeyLoader = InfiniteKeyLoader<PaginatedPosts>;
-type Fetcher = InfiniteFetcher<PaginatedPosts, KeyLoader>;
+type Item = Post;
+type ResponseData = PaginatedData<Item>;
+type KeyLoader = InfiniteKeyLoader<Post[]>;
+type Fetcher = InfiniteFetcher<Post[], KeyLoader>;
 
 const getKey: KeyLoader = (pageIndex, previousPageData) => {
-  console.log(previousPageData);
-  if (pageIndex === 0 || !previousPageData) return `/api/posts`;
-  if (!previousPageData.hasNextPage) return null;
-  return `/api/posts?p=${previousPageData.nextPage}`;
+  console.log(pageIndex);
+  if (previousPageData && previousPageData.length === 0) return null;
+  return `/api/posts?p=${pageIndex + 1}`;
 };
 
-const fetcher: Fetcher = (url) => axiosApi.get(url).then((res) => res.data);
+const fetcher: Fetcher = (url) =>
+  axiosApi.get<ResponseData>(url).then((res) => res.data.docs);
 
 const GalleryPage: NextPage = () => {
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher);

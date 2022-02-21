@@ -7,18 +7,6 @@ import {
 import axios from 'axios';
 import { axiosBackend } from 'utils/axiosApi';
 
-/*
-  UserDetails: {
-    nickname,
-    name (email),
-    picture,
-    updated_at,
-    email,
-    email_verified,
-    sub
-  }
- */
-
 const afterCallback: AfterCallback = async (req, res, session) => {
   const user: UserProfile = session.user;
   const body = {
