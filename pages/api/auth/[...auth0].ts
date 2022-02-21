@@ -2,15 +2,8 @@ import { AfterCallback, handleAuth, handleCallback } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { BACKEND_USERS } from 'constants/api';
 
-type UserDetails = {
-  username: string;
-  email: string;
-  picture: string;
-  emailVerified: boolean;
-};
-
 /*
-  User: {
+  UserDetails: {
     nickname,
     name (email),
     picture,
@@ -21,7 +14,7 @@ type UserDetails = {
   }
  */
 
-const afterCallback: AfterCallback = (req, res, session, state) => {
+const afterCallback: AfterCallback = async (req, res, session) => {
   const {
     nickname: username,
     email,
@@ -30,26 +23,30 @@ const afterCallback: AfterCallback = (req, res, session, state) => {
   } = session.user;
 
   try {
-    const r = axios.post(`${BACKEND_USERS}/add`, {
+    const r = await axios.post(`${BACKEND_USERS}/add`, {
       username,
       email,
       picture,
       emailVerified,
     });
-    console.log(r);
+    console.debug(r.data); // get returned data
   } catch (err) {
     console.error(err);
+    throw err;
   }
   return session;
 };
 
 export default handleAuth({
   callback: async (req, res) => {
-    // try {
-    //   await handleCallback(req, res, { afterCallback });
-    // } catch (error) {
-    //   res.status(error.status || 500).end(error.message);
-    // }
-    await handleCallback(req, res, { afterCallback });
+    try {
+      await handleCallback(req, res, { afterCallback });
+    } catch (err) {
+      if (err instanceof Error) {
+        if (axios.isAxiosError(err))
+          res.status(err.response?.status || 500).end(err.message);
+        else res.status(500).end(err.message);
+      } else res.status(500).end('Unknown error');
+    }
   },
 });

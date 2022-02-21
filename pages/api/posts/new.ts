@@ -22,7 +22,9 @@ type BodyError = {
 type ResBody = BodyData | BodyError;
 
 const endpoint = async (req: NextApiRequest, res: NextApiResponse<ResBody>) => {
-  const { accessToken } = await getAccessToken(req, res);
+  const { accessToken } = await getAccessToken(req, res, {
+    scopes: ['openid', 'profile', 'email'],
+  });
   req.headers.authorization = `Bearer ${accessToken}`; // i think
   httpProxyMiddleware(req, res, {
     target: BACKEND_URL,
