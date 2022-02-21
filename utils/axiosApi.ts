@@ -1,6 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { BACKEND_URL } from 'consts';
 
-const axiosApi = axios.create();
+export const axiosApi = axios.create();
+export const axiosBackend = axios.create({ baseURL: BACKEND_URL });
 
 const datePattern =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d*)?(?:[-+]\d{2}:?\d{2}|Z)?$/;
@@ -37,9 +39,10 @@ const handleDates: HandleDates = (body) => {
   return t;
 };
 
-axiosApi.interceptors.response.use((res) => {
+const responseInterceptor = (res: AxiosResponse) => {
   res.data = handleDates(res.data);
   return res;
-});
+};
 
-export default axiosApi;
+axiosApi.interceptors.response.use(responseInterceptor);
+axiosBackend.interceptors.response.use(responseInterceptor);

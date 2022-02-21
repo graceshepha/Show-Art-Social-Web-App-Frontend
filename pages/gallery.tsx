@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import useSWRInfinite from 'swr/infinite';
-import axiosApi from 'utils/axiosApi';
+import { axiosApi } from 'utils/axiosApi';
 import ListPosts from '@/ListPosts';
 
 type KeyLoader = InfiniteKeyLoader<PaginatedPosts>;

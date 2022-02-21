@@ -1,6 +1,6 @@
 import { AfterCallback, handleAuth, handleCallback } from '@auth0/nextjs-auth0';
 import axios from 'axios';
-import { BACKEND_USERS } from 'constants/api';
+import { axiosBackend } from 'utils/axiosApi';
 
 /*
   UserDetails: {
@@ -23,7 +23,7 @@ const afterCallback: AfterCallback = async (req, res, session) => {
   } = session.user;
 
   try {
-    const r = await axios.post(`${BACKEND_USERS}/add`, {
+    const r = await axiosBackend.post('/u/add', {
       username,
       email,
       picture,
@@ -44,9 +44,9 @@ export default handleAuth({
     } catch (err) {
       if (err instanceof Error) {
         if (axios.isAxiosError(err))
-          res.status(err.response?.status || 500).end(err.message);
-        else res.status(500).end(err.message);
-      } else res.status(500).end('Unknown error');
+          res.status(err.response?.status || 500).send(err.message);
+        else res.status(500).send(err.message);
+      } else res.status(500).send('Unknown error');
     }
   },
 });

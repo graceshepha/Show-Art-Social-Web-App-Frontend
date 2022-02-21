@@ -1,24 +1,45 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import axios from 'axios';
+// import { axiosBackend } from 'utils/axiosApi';
 
-type BodyData = {
+// type ResponseData = {
+//   postid: Post;
+// };
+
+type ResponseData = {
   postid: string;
 };
 
-type BodyError = {
+type ResponseError = {
+  status: number;
   error: string;
 };
 
-type ResBody = BodyData | BodyError;
+type ResponseBody = ResponseData | ResponseError;
 
-const endpoint = async (req: NextApiRequest, res: NextApiResponse<ResBody>) => {
+const endpoint = async (
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseBody>
+) => {
   const { postid } = req.query as { postid: string };
 
   try {
-    // ID IS A VALID NUMBER
+    // wait for the route to exist
+    // const r = await axiosBackend.get(`/p/${postid}`);
+    // const data: ResponseData = r.data;
+
+    // return res.status(200).json(data);
     return res.status(200).json({ postid });
   } catch (err) {
-    if (err instanceof Error)
-      return res.status(400).json({ error: err.message });
+    console.error(err);
+    if (axios.isAxiosError(err)) {
+      const status = err?.response?.status || 500;
+      return res.status(status).json({ status, error: err.message });
+    } else if (err instanceof Error) {
+      return res.status(500).json({ status: 500, error: err.message });
+    } else {
+      return res.status(500).json({ status: 500, error: 'Unknown error' });
+    }
   }
 };
 

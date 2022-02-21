@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import httpProxyMiddleware from 'next-http-proxy-middleware';
-import { BACKEND_URL } from 'constants/api';
+import { BACKEND_URL } from 'consts';
 
 export const config = {
   api: {
@@ -19,9 +19,9 @@ type BodyError = {
   error: string;
 };
 
-type ResBody = BodyData | BodyError;
+type ResponseData = BodyData | BodyError;
 
-const endpoint = async (req: NextApiRequest, res: NextApiResponse<ResBody>) => {
+const handleProxy = async (req: NextApiRequest, res: NextApiResponse) => {
   const { accessToken } = await getAccessToken(req, res, {
     scopes: ['openid', 'profile', 'email'],
   });
@@ -35,6 +35,16 @@ const endpoint = async (req: NextApiRequest, res: NextApiResponse<ResBody>) => {
       },
     ],
   });
+};
+
+const endpoint = async (
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseData>
+) => {
+  // wrapper for the proxy maybe ?
+  console.debug('before: ', res);
+  await handleProxy(req, res);
+  console.debug('after ', res);
 };
 
 export default withApiAuthRequired(endpoint);

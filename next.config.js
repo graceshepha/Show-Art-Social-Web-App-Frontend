@@ -18,7 +18,7 @@ const nextConfig = {
       beforeFiles: [
         {
           source: '/assets/:path*',
-          destination: `${process.env.NEXT_PUBLIC_BACKEND_API}/assets/:path*`,
+          destination: `${process.env.BACKEND_API}/assets/:path*`,
         }
       ]
     }
