@@ -4,6 +4,9 @@ import { BACKEND_URL } from 'consts';
 export const axiosApi = axios.create();
 export const axiosBackend = axios.create({ baseURL: BACKEND_URL });
 
+/*
+nextjs doesnt like date object
+
 const datePattern =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d*)?(?:[-+]\d{2}:?\d{2}|Z)?$/;
 
@@ -46,3 +49,4 @@ const responseInterceptor = (res: AxiosResponse) => {
 
 axiosApi.interceptors.response.use(responseInterceptor);
 axiosBackend.interceptors.response.use(responseInterceptor);
+*/
