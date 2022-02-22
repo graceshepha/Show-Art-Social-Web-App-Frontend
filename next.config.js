@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['tailwindui.com', 'images.unsplash.com', 's.gravatar.com'],
+    domains: ['localhost:8080', 's.gravatar.com'],
   },
   async redirects() {
     return [

@@ -1,8 +1,9 @@
-import React from 'react';
-
 // il y a deux facons d'import
-import ActiveLink1 from 'components/ActiveLink'; // tu peux dire `components/` (plus besoin de faire des routes relatives)
-import ActiveLink2 from '@/ActiveLink'; // ou utiliser le `@/` a la place qui est traduit a `components/`
+// import ActiveLink1 from 'components/ActiveLink'; // tu peux dire `components/` (plus besoin de faire des routes relatives)
+// import ActiveLink2 from '@/ActiveLink'; // ou utiliser le `@/` a la place qui est traduit a `components/`
+import Image from 'next/image';
+import Link from 'next/link';
+import { getPostDetailsById } from 'utils/api/posts';
 
 /*
 ########### TYPING PROPS #################
@@ -15,7 +16,6 @@ import ActiveLink2 from '@/ActiveLink'; // ou utiliser le `@/` a la place qui es
 you can do that in 1 shot by saying:
   type PostCardPropsAndChildren = React.PropsWithChildren<{ example: string }>;
 
-
 ########### TYPING METHODS #################
 1. type method with no children:
   type PostCard = (props: PostCardProps) => React.ReactElement;
@@ -25,18 +25,41 @@ you can do that in 1 shot by saying:
 */
 
 type PostCardProps = {
-  example: string;
+  post: Post;
 };
 
 type PostCard = (props: PostCardProps) => React.ReactElement;
-
 /**
- * @author
+ * @author Bly Grâce Schephatia
  */
-const PostCard: PostCard /* u give type to the function variable */ = ({
+const PostCard: PostCard = ({
   ...props
 }) => {
-  return <>{props.example}</>;
+
+  return (
+    <div className="m-2">
+      <Link href={`/post/${props.post.id}`} passHref>
+        <div
+          className='relative aspect-auto hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out'>
+          <Image
+            className="rounded-lg object-center"
+            src={props.post.image}
+            alt="post"
+            width={250}
+            height={250}
+          />
+        </div>
+      </Link>
+      <Image
+        className="rounded-full object-cover"
+        src={props.post?.owner?.picture}
+        alt="owner-picture"
+        width={48}
+        height={48}
+      />
+      <p className="font-semibold capitalize">{props.post?.owner?.username}</p>
+    </div>
+  )
 };
 
 export default PostCard;

@@ -4,7 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import NewPostForm, { FormikHandleSubmit } from '@/NewPostForm';
 
 const Home: NextPage = () => {
-  const { user, error, isLoading } = useUser();
+  const { user, isLoading } = useUser();
 
   if (isLoading) return <div> Loading ... </div>;
 
