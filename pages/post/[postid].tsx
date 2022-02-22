@@ -1,14 +1,14 @@
-import {
-  NextPage,
-  GetStaticPaths,
-  GetStaticProps,
-  GetStaticPropsContext,
-  InferGetStaticPropsType,
-} from 'next';
+import PostDetails from '@/PostDetails/PostDetails';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
+import { SWRConfig, unstable_serialize } from 'swr';
+import { getPostDetailsById } from 'utils/api/posts';
 
-const PostPage: NextPage = ({
-  posts,
-}: InferGetStaticPropsType<typeof getStaticProps>) => <></>;
+type PostPageProps = {
+  fallback: {
+    [K: string]: Post;
+  };
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // fetch posts ids
@@ -22,16 +22,40 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<PostPageProps> = async ({
+  params,
+}) => {
   // If the route is like /post/1, then params.postid is 1
-  const id = params?.postid;
+  const id = params?.postid as string;
   // Fetch static info less likely to update
-  const res = await fetch(`/api/posts/${id}`);
-  const post = await res.json();
-  if (!post) return { notFound: true };
+  try {
+    // wait for the route to exist
+    const post = await getPostDetailsById(id);
 
-  // Pass post data to the page via props
-  return { props: { post } };
+    // Pass post data to the page via props
+    return {
+      props: {
+        fallback: {
+          [unstable_serialize(['posts', `${id}`])]: post,
+        },
+      },
+    };
+  } catch (err) {
+    return { notFound: true };
+  }
+};
+
+const PostPage = ({
+  fallback,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const router = useRouter();
+  const { postid } = router.query as { postid: string };
+
+  return (
+    <SWRConfig value={{ fallback }}>
+      <PostDetails id={postid} />
+    </SWRConfig>
+  );
 };
 
 export default PostPage;

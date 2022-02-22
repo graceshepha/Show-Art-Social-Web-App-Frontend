@@ -8,7 +8,7 @@ export const getPostPage = async (page: number) => {
 };
 
 export const getPostDetailsById = async (postId: string) => {
-  const r = await axiosBackend.get(`/p/${postId}`);
+  const r = await axiosBackend.get(`/api/p/${postId}`);
   const data = r.data as Post;
 
   return data;
