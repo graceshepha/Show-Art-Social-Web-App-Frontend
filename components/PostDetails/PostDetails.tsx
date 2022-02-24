@@ -1,6 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
+import classNames from 'classnames';
+import styles from './PostDetails.module.css';
 import { usePost } from 'data/use-post';
+import Sidebar from './Sidebar/Sidebar';
 
 type PostDetailsProps = {
   id: string;
@@ -11,26 +14,25 @@ type PostDetails = (
 ) => React.ReactElement<PostDetailsProps>;
 
 const PostDetails: PostDetails = ({ id }) => {
-  const { post, loading, error, mutate } = usePost(id);
+  const { post, error } = usePost(id);
 
-  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
+  if (!post) return <div>Loading...</div>;
   return (
-    <div className="md:flex md:flex-row">
-      <div className="md:basis-4/5 md:grow md:shrink-0 relative h-200 md:h-screen md:max-w-full">
-        <figure>
-          <Image
-            src="https://api.lorem.space/image/album?w=400&h=400"
-            alt="Album"
-            layout="fill"
-            className="object-contain object-center"
-          />
-        </figure>
+    <div className={styles['content-view']}>
+      <div className={styles['content-image']}>
+        <Image
+          src={post.image}
+          alt="Album"
+          layout="fill"
+          className="object-contain object-center"
+        />
       </div>
-      <div className="shrink bg-base-100 shadow-xl">
-        <h2 className="contents">New album is released!</h2>
-        <p>Click the button to listen on Spotiwhy app.</p>
-        <div className="justify-end card-actions">
-          <button className="btn btn-primary">Listen</button>
+      <div className={classNames('bg-base-100', styles['content-sidebar'])}>
+        <div className="relative overflow-hidden p-2 h-full">
+          <div className="overflow-y-auto scroll-smooth scroll-py-6 h-full">
+            <Sidebar post={post} />
+          </div>
         </div>
       </div>
     </div>

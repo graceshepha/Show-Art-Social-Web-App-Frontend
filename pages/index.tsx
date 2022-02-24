@@ -16,7 +16,6 @@ const Home: NextPage = () => {
     if (values.image) formData.append('image', values.image);
     else helpers.setErrors({ image: 'Missing image' });
     formData.append(`tags[]`, JSON.stringify(values?.tags));
-    formData.append('owner', '62061a67e19d1168db64cca5'); // temp
 
     console.debug(formData.get('image'));
     try {

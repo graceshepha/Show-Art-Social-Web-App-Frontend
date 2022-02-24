@@ -22,7 +22,7 @@ export const usePost = (postId: string) => {
     onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
       console.log(error.status);
       // Never retry on 404 or 500
-      if (error.status === 400 || error.status === 500) return;
+      if (error.status === 404 || error.status === 500) return;
 
       // Only retry up to 10 times.
       if (retryCount >= 10) return;
@@ -32,10 +32,7 @@ export const usePost = (postId: string) => {
     },
   });
 
-  const loading = !data && !error;
-
   return {
-    loading,
     error,
     post: data,
     mutate,

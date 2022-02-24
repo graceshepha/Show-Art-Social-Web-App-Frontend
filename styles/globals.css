@@ -5,3 +5,15 @@
 a.active {
     color: rgb(255 255 255);
 }
+
+:root {
+    --navbar-height: 4rem;
+    --sidemenu-width: 0;
+}
+
+@media screen(lg) {
+    :root {
+        --navbar-height: 5rem;
+        --sidemenu-width: 23rem;
+    }
+}

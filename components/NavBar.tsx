@@ -23,7 +23,7 @@ export default function NavBar() {
   const { user } = useUser();
 
   return (
-    <nav className="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+    <nav className="navbar shadow-lg bg-neutral text-neutral-content">
       <div className="flex-none px-2 mx-2">
         <span className="text-lg font-bold">showArts</span>
       </div>
@@ -55,7 +55,9 @@ export default function NavBar() {
 
         {!user ? (
           <button className="btn">
-            <Link href="/api/auth/login" passHref>Sign In</Link>
+            <Link href="/api/auth/login" passHref>
+              Sign In
+            </Link>
           </button>
         ) : (
           <NavBaritemProfile />

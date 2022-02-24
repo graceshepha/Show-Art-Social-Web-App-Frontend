@@ -1,0 +1,21 @@
+.content-view {
+    @apply lg:flex;
+    background-color: rgb(24, 24, 27);
+    min-height: calc(100vh - var(--navbar-height));
+}
+
+.content-image {
+    @apply lg:basis-full;
+    position: relative;
+    min-width: 0;
+    height: calc(100vh - var(--navbar-height));
+}
+
+@media screen(lg) {
+    .content-sidebar {
+        @apply shrink-0;
+        width: var(--sidemenu-width);
+        height: calc(100vh - var(--navbar-height));
+        max-height: calc(100vh - var(--navbar-height));
+    }
+}

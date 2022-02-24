@@ -29,10 +29,8 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({
   const id = params?.postid as string;
   // Fetch static info less likely to update
   try {
-    // wait for the route to exist
     const post = await getPostDetailsById(id);
 
-    // Pass post data to the page via props
     return {
       props: {
         fallback: {

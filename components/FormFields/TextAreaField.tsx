@@ -10,6 +10,7 @@ const getClasses: GetClasses = ({ className, error }) => {
   const c = className || '';
   return classNames({
     textarea: !className?.match(/textarea(\s|$)/),
+    'resize-y': true,
     [c]: true,
     'input-error': !!error,
   });
