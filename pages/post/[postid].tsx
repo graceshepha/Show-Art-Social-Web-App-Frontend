@@ -1,8 +1,8 @@
-import PostDetails from '@/PostDetails/PostDetails';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { SWRConfig, unstable_serialize } from 'swr';
-import { getPostDetailsById } from 'utils/api/posts';
+import PostDetails from '@/PostDetails/PostDetails';
+import { getPostDetailsById } from 'libs/posts';
 
 type PostPageProps = {
   fallback: {
@@ -49,6 +49,9 @@ const PostPage = ({
   const router = useRouter();
   const { postid } = router.query as { postid: string };
 
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
   return (
     <SWRConfig value={{ fallback }}>
       <PostDetails id={postid} />

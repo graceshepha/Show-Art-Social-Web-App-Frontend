@@ -4,30 +4,30 @@ import {
   handleCallback,
   UserProfile,
 } from '@auth0/nextjs-auth0';
-import axios from 'axios';
-import { axiosBackend } from 'utils/axiosApi';
+import { axiosBackend, testErrors } from 'libs/commons';
 
 const afterCallback: AfterCallback = async (req, res, session) => {
   const user: UserProfile = session.user;
-  const body = {
-    username: user.nickname,
-    email: user.email,
-    picture: user.picture,
-    emailVerified: user.email_verified,
-  };
 
   try {
-    const r = await axiosBackend.post('/api/u/login', body, {
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
+    await axiosBackend.post<User>(
+      '/api/u/login',
+      {
+        username: user.nickname,
+        email: user.email,
+        picture: user.picture,
+        emailVerified: user.email_verified,
       },
-    });
-    console.debug(r.data); // get returned data
+      {
+        headers: {
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      }
+    );
+    return session;
   } catch (err) {
-    console.error(err);
     throw err;
   }
-  return session;
 };
 
 export default handleAuth({
@@ -36,10 +36,9 @@ export default handleAuth({
       await handleCallback(req, res, { afterCallback });
     } catch (err) {
       if (err instanceof Error) {
-        if (axios.isAxiosError(err))
-          res.status(err.response?.status || 500).send(err.message);
-        else res.status(500).send(err.message);
-      } else res.status(500).send('Unknown error');
+        const e = testErrors(err);
+        res.status(e.status).json(e);
+      }
     }
   },
 });

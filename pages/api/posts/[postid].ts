@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { testErrors } from 'utils/api/common';
-import { getPostDetailsById } from 'utils/api/posts';
+import { testErrors } from 'libs/commons';
+import { getPostDetailsById } from 'libs/posts';
 
 // type ResponseData = Post;
 
@@ -21,9 +21,8 @@ const endpoint = async (
     const post = await getPostDetailsById(postid);
     res.status(200).json(post);
   } catch (err) {
-    console.error(err);
     const e = testErrors(err);
-    res.status(e.status);
+    res.status(e.status).end(e.error);
   }
 };
 

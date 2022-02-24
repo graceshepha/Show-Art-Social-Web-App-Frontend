@@ -3,7 +3,7 @@
 // import ActiveLink2 from '@/ActiveLink'; // ou utiliser le `@/` a la place qui est traduit a `components/`
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react'
+import { useState } from 'react';
 
 /*
 ########### TYPING PROPS #################
@@ -32,9 +32,7 @@ type PostCard = (props: PostCardProps) => React.ReactElement;
 /**
  * @author Bly Grâce Schephatia
  */
-const PostCard: PostCard = ({
-  ...props
-}) => {
+const PostCard: PostCard = ({ ...props }) => {
   const [postHovered, setPostHovered] = useState(false);
 
   return (
@@ -43,7 +41,8 @@ const PostCard: PostCard = ({
         <div
           onMouseEnter={() => setPostHovered(true)}
           onMouseLeave={() => setPostHovered(false)}
-          className='relative aspect-auto hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out'>
+          className="relative aspect-auto hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out"
+        >
           <Image
             className="rounded-lg object-center"
             src={props.post.image}
@@ -68,7 +67,7 @@ const PostCard: PostCard = ({
         </div>
       </Link>
       <div className="flex gap-2 mt-2 items-center">
-        {props.post?.owner &&
+        {props.post?.owner && (
           <Image
             className="rounded-full object-cover"
             src={props.post?.owner?.picture}
@@ -76,11 +75,13 @@ const PostCard: PostCard = ({
             width={48}
             height={48}
           />
-        }
-        <p className="font-semibold capitalize">{props.post?.owner?.username}</p>
+        )}
+        <p className="font-semibold capitalize">
+          {props.post?.owner?.username}
+        </p>
       </div>
     </div>
-  )
+  );
 };
 
 export default PostCard;

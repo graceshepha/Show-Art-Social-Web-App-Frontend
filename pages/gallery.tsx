@@ -3,13 +3,12 @@ import ListPosts from '@/ListPosts';
 import { useGallery } from 'data/use-gallery';
 
 const GalleryPage: NextPage = () => {
-  const { posts, error, size, setSize } = useGallery();
+  const { posts, size, setSize } = useGallery();
   return (
     <>
       <div className="lg:mx-auto px-8 py-4">
         <p>Gallery page</p>
-        <ListPosts pages={posts} />
-        <button onClick={() => setSize(size + 1)}>Load More</button>
+        <ListPosts pages={posts} loadMore={() => setSize(size + 1)} />
       </div>
     </>
   );

@@ -1,7 +1,6 @@
 import useSWRInfinite from 'swr/infinite';
-import { axiosApi } from 'utils/axiosApi';
+import { axiosApi } from 'libs/commons';
 
-type ResponseData = PaginatedData<Post>;
 type KeyLoader = InfiniteKeyLoader<Post[]>;
 
 const getKey: KeyLoader = (pageIndex, previousPageData) => {
@@ -10,7 +9,7 @@ const getKey: KeyLoader = (pageIndex, previousPageData) => {
 };
 
 const fetcher = (url: string) =>
-  axiosApi.get<ResponseData>(url).then((res) => res.data.docs);
+  axiosApi.get<PaginatedData<Post>>(url).then((res) => res.data.docs);
 
 export const useGallery = () => {
   const { data, error, size, setSize, mutate } = useSWRInfinite(

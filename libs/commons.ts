@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+export const BACKEND_URL = 'http://localhost:8080';
+
+export const axiosApi = axios.create();
+export const axiosBackend = axios.create({ baseURL: BACKEND_URL });
+
 export const testErrors = (err: unknown) => {
   if (axios.isAxiosError(err)) {
     const status = err?.response?.status || 500;
