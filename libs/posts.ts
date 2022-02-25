@@ -7,13 +7,13 @@ export const getPostPage = async (page: number) => {
   return r.data;
 };
 
-export const getPostDetailsById = async (postId: string) => {
-  const r = await axiosBackend.get<Post>(`/api/p/${postId}`);
+export const getPostDetailsById = async (id: string) => {
+  const r = await axiosBackend.get<Post>(`/api/p/${id}`);
   const data = r.data;
 
   return data;
 };
 
-export const registerView = async (postId: string) => {
-  await axiosBackend.post(`/api/p/${postId}/view`);
+export const registerView = async (id: string) => {
+  await axiosBackend.post(`/api/p/${id}/view`);
 };
