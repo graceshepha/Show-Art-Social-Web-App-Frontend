@@ -13,8 +13,8 @@ type PostPageProps = {
 export const getStaticPaths: GetStaticPaths = async () => {
   // fetch posts ids
   const posts: string[] = [];
-  const paths = posts.map((post) => ({
-    params: { post },
+  const paths = posts.map((postid) => ({
+    params: { postid },
   }));
   return {
     paths,
