@@ -18,3 +18,5 @@ export const fetcherPathId = async (path: string, id: string) => {
     throw e;
   }
 };
+
+// Add a fetcher pour get les infos d'un user

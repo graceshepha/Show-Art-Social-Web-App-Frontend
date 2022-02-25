@@ -28,10 +28,14 @@ const NavBaritemProfile = () => {
         </div>
         <div className="divider"></div>
         <li className="text-white">
-          <a>Your profile</a>
+          <Link href="/me" passHref>
+            <a>Your profile</a>
+          </Link>
         </li>
         <li className="text-white">
-          <a href="/api/auth/logout">Sign Out</a>
+          <Link href="/api/auth/logout" passHref>
+            <a>Sign Out</a>
+          </Link>
         </li>
       </ul>
     </div>
