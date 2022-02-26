@@ -46,13 +46,13 @@ const NewComment: NewComment = ({ postId }) => {
     <div className="flex gap-2 my-2 group">
       <textarea
         name="new-comment"
-        className="textarea textarea-bordered w-full h-16 resize-none text-sm rounded-sm disabled:text-neutral-focus transition-[height] delay-150 duration-300 group-hover:h-32 focus:h-32 scrollbar scrollbar-thumb-stone-900 scrollbar-track-inherit peer"
+        className="textarea textarea-bordered w-full h-16 resize-none text-sm rounded-sm disabled:text-opacity-25 transition-[height] delay-150 duration-300 group-hover:h-32 focus:h-32 scrollbar scrollbar-thumb-stone-900 scrollbar-track-inherit peer"
         onSubmit={handleSend}
+        value={comment}
         onChange={(e) => setComment(e.target.value)}
         onKeyDown={handleKeyPress}
         disabled={!user}
         rows={3}
-        value={comment}
       />
       <div className="avatar transition-[width] delay-150 duration-300 h-16 w-16 group-hover:w-0 peer-focus:w-0 order-first">
         <div className="relative mask mask-half-2 w-full h-full bg-opacity-80 bg-stone-900">
