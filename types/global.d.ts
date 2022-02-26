@@ -57,6 +57,11 @@ declare type User = {
 
 type PostVisibility = 'public' | 'private';
 
+declare type PostComment = {
+  user: User;
+  comment: string;
+};
+
 declare type Post = {
   id: string;
   title: string;
@@ -70,10 +75,7 @@ declare type Post = {
     likes: User[];
     views: number;
   };
-  comments: {
-    user: User;
-    comment: string;
-  }[];
+  comments: PostComment[];
 };
 
 declare type Tag = {

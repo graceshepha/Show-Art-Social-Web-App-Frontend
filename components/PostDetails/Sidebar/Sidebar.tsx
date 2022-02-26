@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentSection from './CommentSection/CommentSection';
 import PostInformation from './PostInformation';
 import UserProfile from './UserProfile';
 
@@ -10,14 +11,14 @@ type Sidebar = (props: SidebarProps) => React.ReactElement<SidebarProps>;
 
 const Sidebar: Sidebar = ({ post }) => {
   return (
-    <div className="flex flex-col font-sans antialiased">
+    <div className="flex flex-col font-sans antialiased p-2 divide-y w-full divide-slate-400/50">
       <PostInformation
         title={post.title}
         description={post.description}
         meta={post.meta}
       />
       <UserProfile user={post.owner} />
-      <div>{post.comments}</div>
+      <CommentSection id={post.id} comments={post.comments} />
     </div>
   );
 };

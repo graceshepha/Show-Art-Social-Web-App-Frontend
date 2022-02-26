@@ -11,6 +11,10 @@
     height: calc(100vh - var(--navbar-height));
 }
 
+.content-sidebar {
+    @apply bg-base-100
+}
+
 @media screen(lg) {
     .content-sidebar {
         @apply shrink-0;

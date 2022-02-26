@@ -7,9 +7,13 @@ module.exports = {
   theme: {
     extend: {},
   },
+  variant: {
+    scrollbar: ['dark']
+  },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
+    require('tailwind-scrollbar'),
     require('daisyui'),
   ],
   daisyui: {

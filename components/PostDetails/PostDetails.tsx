@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import classNames from 'classnames';
 import styles from './PostDetails.module.css';
 import { usePost } from 'data/use-post';
 import Sidebar from './Sidebar/Sidebar';
@@ -28,8 +27,8 @@ const PostDetails: PostDetails = ({ id }) => {
           className="object-contain object-center"
         />
       </div>
-      <div className={classNames('bg-base-100', styles['content-sidebar'])}>
-        <div className="relative overflow-hidden p-2 h-full">
+      <div className={styles['content-sidebar']}>
+        <div className="relative overflow-hidden p-2 h-full bg-gradient-to-tr from-base-100 to-base-300">
           <div className="overflow-y-auto scroll-smooth scroll-py-6 h-full">
             <Sidebar post={post} />
           </div>

@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { testErrors } from 'libs/commons';
-import { registerView } from 'libs/posts';
+import { getPostDetailsById } from 'libs/posts';
 
-const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
+const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postid } = req.query as { postid: string };
 
   try {
-    await registerView(postid);
-    res.status(201).end();
+    const post = await getPostDetailsById(postid);
+    res.status(200).json(post);
   } catch (err) {
     const e = testErrors(err);
     res.status(e.status).end(e.error);
@@ -16,11 +16,11 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
-    case 'POST':
-      handlePost(req, res);
+    case 'GET':
+      await handleGet(req, res);
       break;
     default:
-      res.setHeader('Allow', ['POST']);
+      res.setHeader('Allow', ['GET']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
