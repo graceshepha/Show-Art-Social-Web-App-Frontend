@@ -14,7 +14,7 @@ const UserProfile: UserProfile = ({ user }) => {
     <div className="sidebar-userdetails p-5 prose prose-zinc dark:prose-invert max-w-full">
       <div className="relative flex gap-3 place-items-start content-start">
         <div className="avatar">
-          <div className="relative mask mask-squircle h-24 w-24 bg-opacity-10">
+          <div className="relative mask mask-square h-24 w-24 bg-opacity-10">
             <Image
               src={user.picture}
               alt={user.username}

@@ -58,8 +58,10 @@ declare type User = {
 type PostVisibility = 'public' | 'private';
 
 declare type PostComment = {
-  user: User;
+  id: string;
+  user: Pick<User, 'id' | 'username' | 'picture'>;
   comment: string;
+  date: string;
 };
 
 declare type Post = {
@@ -69,7 +71,7 @@ declare type Post = {
   image: string;
   description?: string;
   visibility: PostVisibility;
-  date: Date;
+  date: string;
   tags: Tag[];
   meta: {
     likes: User[];

@@ -6,7 +6,7 @@ type PostInformation = (
 
 const PostInformation: PostInformation = ({ title, description, meta }) => {
   return (
-    <div className="sidebar-userdetails prose prose-zinc dark:prose-invert max-w-full p-5">
+    <div className="sidebar-userdetails prose prose-zinc dark:prose-invert max-w-full p-5 break-words">
       <h1>{title}</h1>
       <p>{description ? description : 'description...'}</p>
       <p>

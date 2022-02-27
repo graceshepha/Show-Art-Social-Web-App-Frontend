@@ -8,9 +8,9 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postid } = req.query as { postid: string };
   const { comment } = req.body as { comment: string };
   try {
-    if (!accessToken) console.error('The access token has a falsely value');
-    else await commentOnPostId(accessToken, postid, comment);
-    res.status(201).end();
+    if (!accessToken) throw new Error('The access token has a falsely value');
+    const comments = await commentOnPostId(accessToken, postid, comment);
+    res.status(200).json(comments);
   } catch (err) {
     const e = testErrors(err);
     res.status(e.status).end(e.error);

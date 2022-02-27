@@ -17,7 +17,7 @@ export const commentOnPostId = async (
   id: string,
   comment: string
 ) => {
-  await axiosBackend.post(
+  const res = await axiosBackend.post<PostComment[]>(
     `/api/p/${id}/comment`,
     { comment },
     {
@@ -26,6 +26,7 @@ export const commentOnPostId = async (
       },
     }
   );
+  return res.data;
 };
 
 export const registerView = async (id: string) => {
