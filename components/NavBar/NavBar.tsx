@@ -1,7 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
-import ActiveLink from '@/ActiveLink';
-import NavBaritemProfile from '@/NavBarItemProfile';
+import ActiveLink from '@/NavBar/ActiveLink';
+import NavBaritemProfile from '@/NavBar/NavBarItemProfile';
 
 type navItem = {
   name: string;

@@ -1,5 +1,6 @@
 import { NextPage, GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import { useUser } from 'data/use-user';
 
 const UserPage: NextPage = (props) => {
   const router = useRouter();

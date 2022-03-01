@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
-import Navbar from '@/NavBar';
+import Navbar from '@/NavBar/NavBar';
 
 /**
  * @description

@@ -8,7 +8,7 @@ export const getUserPage = async (page: number) => {
 };
 
 export const getProfile = async (accessToken: string) => {
-  const r = await axiosBackend.get<User>('/api/u/me', {
+  const r = await axiosBackend.get<User>('/api/me', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

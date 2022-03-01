@@ -30,25 +30,27 @@ declare type InfiniteFetcher<
   ? (arg0: S) => D | Promise<D>
   : never;
 
+declare type UserDetails = {
+  bio?: string;
+  workplace?: string;
+  socials?: {
+    twitter?: string;
+    facebook?: string;
+    website?: string;
+  };
+  location?: {
+    city?: string;
+    country?: string;
+  };
+};
+
 declare type User = {
   id: string;
   username: string;
   email: string;
   emailVerified?: boolean;
   picture: string;
-  details?: {
-    bio?: string;
-    workplace?: string;
-    socials?: {
-      twitter?: string;
-      facebook?: string;
-      website?: string;
-    };
-    location?: {
-      city?: string;
-      country?: string;
-    };
-  };
+  details?: UserDetails;
   posts: Post[];
   likedPosts: Post[];
   followers: User[];
