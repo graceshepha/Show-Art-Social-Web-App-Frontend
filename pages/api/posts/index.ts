@@ -46,10 +46,10 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':
-      handleGet(req, res);
+      await handleGet(req, res);
       break;
     case 'POST':
-      withApiAuthRequired(handlePost)(req, res);
+      await withApiAuthRequired(handlePost)(req, res);
       break;
     default:
       res.setHeader('Allow', ['GET', 'POST']);

@@ -9,9 +9,24 @@ export const getPostPage = async (page: number) => {
 
 export const getPostDetailsById = async (id: string) => {
   const r = await axiosBackend.get<Post>(`/api/p/${id}`);
-  const data = r.data;
+  return r.data;
+};
 
-  return data;
+export const commentOnPostId = async (
+  accessToken: string,
+  id: string,
+  comment: string
+) => {
+  const res = await axiosBackend.post<PostComment[]>(
+    `/api/p/${id}/comment`,
+    { comment },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return res.data;
 };
 
 export const registerView = async (id: string) => {

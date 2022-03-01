@@ -5,11 +5,21 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        height: 'height',
+        width: 'width',
+        spacing: 'margin, padding',
+      },
+    },
+  },
+  variant: {
+    scrollbar: ['dark'],
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
+    require('tailwind-scrollbar'),
     require('daisyui'),
   ],
   daisyui: {

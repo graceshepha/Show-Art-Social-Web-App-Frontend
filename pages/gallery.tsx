@@ -7,7 +7,6 @@ const GalleryPage: NextPage = () => {
   return (
     <>
       <div className="lg:mx-auto px-8 py-4">
-        <p>Gallery page</p>
         <ListPosts pages={posts} loadMore={() => setSize(size + 1)} />
       </div>
     </>
