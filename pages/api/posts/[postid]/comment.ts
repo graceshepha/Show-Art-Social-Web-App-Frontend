@@ -1,4 +1,4 @@
-import { commentOnPostId } from './../../../../libs/posts';
+import { commentOnPostId } from 'libs/posts';
 import { testErrors } from 'libs/commons';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';

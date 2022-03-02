@@ -1,8 +1,8 @@
 import { axiosBackend } from './commons';
 
-export const getPostPage = async (page: number) => {
+export const getPostPage = async (page: number, search: string) => {
   const r = await axiosBackend.get<PaginatedData<Post>>('/api/p', {
-    params: { page },
+    params: { page, search },
   });
   return r.data;
 };
