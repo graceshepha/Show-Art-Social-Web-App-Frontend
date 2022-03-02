@@ -14,7 +14,7 @@ type FormValues = {
   tags: string[];
 };
 
-export type FormikHandleSubmit = (
+export type HandleSubmit = (
   v: FormValues,
   h: FormikHelpers<FormValues>
 ) => void;
@@ -23,7 +23,7 @@ type NewPostFormProps = Omit<
   React.ComponentPropsWithoutRef<'form'>,
   'onSubmit'
 > & {
-  onSubmit: FormikHandleSubmit;
+  onSubmit: HandleSubmit;
 };
 
 type NewPostForm = (

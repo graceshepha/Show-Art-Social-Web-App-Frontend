@@ -30,12 +30,13 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   // get number page
-  const { p } = req.query;
+  const { p, s } = req.query;
   let page = typeof p === 'string' ? parseInt(p, 10) : 1;
   if (Number.isNaN(page)) page = 1;
+  const search = !!s && typeof s === 'string' ? s : '';
 
   try {
-    const posts = await getPostPage(page);
+    const posts = await getPostPage(page, search);
     return res.status(200).json(posts);
   } catch (err) {
     const e = testErrors(err);

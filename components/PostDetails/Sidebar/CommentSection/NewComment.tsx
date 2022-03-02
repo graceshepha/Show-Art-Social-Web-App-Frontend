@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useUser } from '@auth0/nextjs-auth0';
 import { UserIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import Loading from '@/Loading';
 
 type NewCommentProps = {
   onSendComment: (comment: string) => void;
@@ -31,12 +32,7 @@ const NewComment: NewComment = ({ onSendComment }) => {
     }
   };
 
-  if (isLoading)
-    return (
-      <div className="w-full flex justify-center my-4">
-        <div className="animate-spin ease-linear border-2 rounded-full border-y-base-content border-transparent h-5 w-5" />
-      </div>
-    );
+  if (isLoading) return <Loading />;
 
   return (
     <div className="relative flex my-2 group">
@@ -71,20 +67,3 @@ const NewComment: NewComment = ({ onSendComment }) => {
 };
 
 export default NewComment;
-
-{
-  /* <svg
-className="stroke-stone-700 fill-stone-500"
-width="4rem"
-height="4rem"
-viewBox="0 0 512 512"
-xmlns="http://www.w3.org/2000/svg"
->
-<path d="M368,128c0,61.859-50.125,160-112,160c-61.844,0-112-98.141-112-160S160,0,256,0S368,66.141,368,128z" />
-<path
-  d="M416,320h-32c-23.438,0-43.75-12.75-54.875-31.563C308.063,307.625,283.313,320,256,320
-c-27.281,0-52.031-12.375-73.125-31.563C171.734,307.25,151.453,320,128,320H96c0,0-58,16-96,96v64c0,17.688,14.313,32,32,32h448
-c17.688,0,32-14.313,32-32v-64C474,336,416,320,416,320z"
-/>
-</svg> */
-}
