@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image'
 import SocialProfile from './SocialProfiles';
-import UserStats from './UserStats';
 
 type UserProfileProps = {
     user: User;
@@ -37,7 +36,6 @@ export const UserProfileInfos: UserProfileInfos = ({ user }) => {
                 )
             }
             <SocialProfile user={user} />
-            <UserStats user={user} />
         </div>
     );
 } 

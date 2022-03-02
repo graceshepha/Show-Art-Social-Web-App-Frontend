@@ -32,58 +32,40 @@ type PostCard = (props: PostCardProps) => React.ReactElement;
 /**
  * @author Bly Grâce Schephatia
  */
-const PostCard: PostCard = ({ ...props }) => {
-  // const [postHovered, setPostHovered] = useState(false);
-
-  return (
-    <div className="m-2">
-      <Link href={`/post/${props.post.id}`} passHref>
-        <div
-          // onMouseEnter={() => setPostHovered(true)}
-          // onMouseLeave={() => setPostHovered(false)}
-          className="relative aspect-auto hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out"
-        >
-          {props.post?.image && (
-            <Image
-              className="rounded-lg object-center"
-              src={props.post.image}
-              alt="post"
-              width={250}
-              height={250}
-            />
-          )}
-          {/* {postHovered && ( */}
-          <div
-            className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50"
-            style={{ height: '100%' }}
-          >
-            <div className="flex justify-between items-center gap-2 w-full">
-              {props.post?.title && (
-                <div className="bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md">
-                  <p className="font-bold capitalize">{props.post?.title}</p>
-                </div>
-              )}
-            </div>
-          </div>
-          {/* )} */}
-        </div>
-      </Link>
-      <div className="flex gap-2 mt-2 items-center">
-        {props.post?.owner && (
+const PostCard: PostCard = ({ ...props }) => (
+  <div className="w-full antialiased hover:shadow-xl hover:scale-105 hover:z-10 overflow-hidden transition-all duration-300 ease-in-out">
+    <Link href={`/post/${props.post.id}`} passHref>
+      <article className="relative">
+        <div className="aspect-square w-full">
           <Image
-            className="rounded-full object-cover"
-            src={props.post?.owner?.picture}
-            alt="owner-picture"
-            width={48}
-            height={48}
+            src={props.post.image}
+            alt={props.post.title}
+            layout="fill"
+            className="rounded-md object-cover object-center"
           />
-        )}
-        <p className="font-semibold capitalize">
-          {props.post?.owner?.username}
-        </p>
-      </div>
-    </div>
-  );
-};
+        </div>
+        <div className="absolute top-0 w-full h-full bg-gradient-to-t from-gray-900/90 to-gray-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out select-none">
+          <div className="absolute top-4 left-4 font-bold break-words capitalize text-slate-100/80">
+            {props.post.title}
+          </div>
+          {/* <div className="absolute bottom-4 left-4 flex gap-2 mt-2 items-center">
+            {props.post?.owner && (
+              <Image
+                className="rounded-full object-cover"
+                src={props.post.owner.picture}
+                alt="owner-picture"
+                width={48}
+                height={48}
+              />
+            )}
+            <p className="font-semibold capitalize text-slate-100/80">
+              {props.post.owner.username}
+            </p>
+          </div> */}
+        </div>
+      </article>
+    </Link>
+  </div>
+);
 
 export default PostCard;
