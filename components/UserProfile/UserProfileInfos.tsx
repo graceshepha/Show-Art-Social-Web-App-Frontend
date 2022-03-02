@@ -12,10 +12,9 @@ type UserProfileInfos = (
 ) => React.ReactElement<UserProfileProps>;
 
 export const UserProfileInfos: UserProfileInfos = ({ user }) => {
-
     return (
         <div className="flex flex-col gap-1 text-center">
-            <div className="relative block rounded- mx-auto bg-center bg-no-repeat bg-cover w-20 h-20 rounded-full border border-gray-400 shadow-lg">
+            <div className="relative block mx-auto bg-center bg-no-repeat bg-cover w-20 h-20 rounded-full border border-gray-400 shadow-lg">
                 <Image
                     src={user.picture}
                     alt={user.username}
@@ -35,7 +34,6 @@ export const UserProfileInfos: UserProfileInfos = ({ user }) => {
                         <span className="text-sm text-gray-400">{user.details?.bio}</span>
                         <span className="text-sm text-gray-400">{user.details?.workplace}</span>
                     </>
-
                 )
             }
             <SocialProfile user={user} />
