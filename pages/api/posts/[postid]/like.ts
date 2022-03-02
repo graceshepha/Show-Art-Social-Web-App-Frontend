@@ -3,6 +3,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { addLike, removeLike } from 'libs/posts';
 import { testErrors } from 'libs/commons';
 
+
+/**
+ *Pour pouvoir ajouter le addLike en prenant les parametre du url
+ * @author My-Anh Chau
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postid } = req.query as { postid: string };
   // Besoin d'acceder pr le token
@@ -18,6 +23,10 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ *  Pour pouvoir ajouter le addLike en prenant les parametre du url
+ * @author My-Anh Chau
+ */
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postid } = req.query as { postid: string };
   // Besoin du token
@@ -32,7 +41,10 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-// ces quoi qui va definir la route
+/**
+ *   ces quoi qui va definir la route
+ * @author My-Anh Chau
+ */
 const endpts = async (req: NextApiRequest, res: NextApiResponse) => {
   // methode de la requete
   switch (req.method) {
@@ -48,7 +60,7 @@ const endpts = async (req: NextApiRequest, res: NextApiResponse) => {
 
       break;
     default:
-      // A EXPLIQUER
+
       res.setHeader('Allow', ['POST', 'DELETE']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }

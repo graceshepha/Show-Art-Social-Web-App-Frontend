@@ -29,7 +29,10 @@ export const commentOnPostId = async (
   return res.data;
 };
 
-// Mettre celui pour like
+/**
+ * utilisation du axiosBackend pour addlike
+ * @author My-Anh Chau
+ */
 export const addLike = async (accessToken: string, idPost: string) => {
   await axiosBackend.post(`/api/p/${idPost}/like`, null, {
     headers: {
@@ -38,7 +41,10 @@ export const addLike = async (accessToken: string, idPost: string) => {
   });
 };
 
-// Mettre celui pour unlike
+/**
+ * utilisation du axiosBackend pour unlike
+ * @author My-Anh Chau
+ */
 export const removeLike = async (accessToken: string, idPost: string) => {
   await axiosBackend.delete(`/api/p/${idPost}/like`, {
     headers: {
