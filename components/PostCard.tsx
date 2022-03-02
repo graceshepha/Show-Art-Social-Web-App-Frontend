@@ -41,8 +41,9 @@ const PostCard: PostCard = ({ ...props }) => {
         <div
           // onMouseEnter={() => setPostHovered(true)}
           // onMouseLeave={() => setPostHovered(false)}
-          className="relative aspect-auto hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out">
-          {props.post?.image &&
+          className="relative aspect-auto hover:shadow-lg overflow-hidden transition-all duration-500 ease-in-out"
+        >
+          {props.post?.image && (
             <Image
               className="rounded-lg object-center"
               src={props.post.image}
@@ -50,7 +51,7 @@ const PostCard: PostCard = ({ ...props }) => {
               width={250}
               height={250}
             />
-          }
+          )}
           {/* {postHovered && ( */}
           <div
             className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50"

@@ -57,7 +57,7 @@ const ImageUploaderField: ImageUploaderField = ({
     <div
       onDrop={onDropHandler}
       onDragOver={(e) => e.preventDefault()}
-      className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-base-300 border-dashed rounded-md"
+      className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-base-content/20 border-dashed rounded-md"
     >
       <div className="space-y-1 text-center">
         <div className="pb-3">

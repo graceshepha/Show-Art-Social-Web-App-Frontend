@@ -16,7 +16,7 @@ type ListPosts = (props: ListPostsProps) => React.ReactElement<ListPostsProps>;
 const ListPosts: ListPosts = ({ pages, loadMore }) => {
   return (
     <div className="bg-base-200 rounded-xl p-5">
-      <div className="relative grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-2 w-full auto-rows-max">
+      <div className="relative grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full auto-rows-max">
         {pages?.map((page) => {
           return page.map((p) => <PostCard key={p.id} post={p} />);
         })}

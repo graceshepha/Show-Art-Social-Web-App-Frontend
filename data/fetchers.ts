@@ -1,13 +1,25 @@
 import { axiosApi, testErrors } from 'libs/commons';
 
-type CustomError = Error & {
+export type CustomError = Error & {
   info?: string;
   status?: number;
 };
 
-export const fetcherPathId = async (path: string, id: string) => {
+type PathsMap = {
+  posts: Post;
+  user: User;
+};
+
+type Paths = keyof PathsMap;
+
+export type KeyPathId<Path extends Paths> = [P: Path, I: string];
+
+export const fetcherPathId = async <Path extends Paths>(
+  path: Path,
+  id: string
+) => {
   try {
-    const res = await axiosApi.get<Post>(`/api/${path}/${id}`);
+    const res = await axiosApi.get<PathsMap[typeof path]>(`/api/${path}/${id}`);
     return res.data;
   } catch (err) {
     const _e = testErrors(err);
