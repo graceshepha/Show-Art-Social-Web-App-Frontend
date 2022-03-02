@@ -14,7 +14,7 @@ type PostInformation = (
 ) => React.ReactElement<PostInformationProps>;
 
 const fetcherLiked = (url: string) =>
-  axiosApi.get<{ hasLiked: boolean }>(url).then((res) => res.data);
+  axiosApi.get<{ hasLiked: boolean }>(url).then((res) => res.data.hasLiked);
 
 const PostInformation: PostInformation = ({
   id,
@@ -24,7 +24,7 @@ const PostInformation: PostInformation = ({
   onLikeChange,
 }) => {
   const { user } = useUser();
-  const { data, mutate } = useSWR(
+  const { data: hasLiked, mutate } = useSWR(
     user ? `/api/posts/${id}/like` : null,
     fetcherLiked
   );
@@ -32,7 +32,7 @@ const PostInformation: PostInformation = ({
   const likes = async () => {
     try {
       await axiosApi.post(`/api/posts/${id}/like`);
-      mutate({ hasLiked: true }); // like
+      mutate(true); // like
       onLikeChange(true);
     } catch (err) {
       console.error(err);
@@ -41,7 +41,7 @@ const PostInformation: PostInformation = ({
   const unlike = async () => {
     try {
       await axiosApi.delete(`/api/posts/${id}/like`);
-      mutate({ hasLiked: false }); // disliking
+      mutate(false); // disliking
       onLikeChange(false);
     } catch (err) {
       console.error(err);
@@ -53,7 +53,7 @@ const PostInformation: PostInformation = ({
       <h1>{title}</h1>
       <p>{description ? description : 'description...'}</p>
       {user &&
-        (!data?.hasLiked ? (
+        (!hasLiked ? (
           <button className="btn btn-outline btn-primary" onClick={likes}>
             Like
           </button>

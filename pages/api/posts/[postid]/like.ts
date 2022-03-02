@@ -3,6 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { hasLiked, addLike, removeLike } from 'libs/posts';
 import { testErrors } from 'libs/commons';
 
+/**
+ * Fonction de la route qui permet de voir si l'utilisateur à déjà like un post.
+ * @author My-Anh Chau
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { accessToken } = await getAccessToken(req, res);
   const { postid } = req.query as { postid: string };
@@ -16,6 +20,10 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Fonction de la route qui permet d'ajouter un like à un post.
+ * @author My-Anh Chau
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   const { accessToken } = await getAccessToken(req, res);
   const { postid } = req.query as { postid: string };
@@ -29,6 +37,10 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Fonction de la route qui permet de supprimer un like du post.
+ * @author My-Anh Chau
+ */
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   const { accessToken } = await getAccessToken(req, res);
   const { postid } = req.query as { postid: string };
@@ -42,7 +54,10 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-// ces quoi qui va definir la route
+/**
+ * Le enpoint qui va guider la requête à partir de sa méthode.
+ * @author My-Anh Chau
+ */
 const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   // methode de la requete
   switch (req.method) {
@@ -58,7 +73,6 @@ const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
       await withApiAuthRequired(handleDelete)(req, res);
       break;
     default:
-      // A EXPLIQUER
       res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
