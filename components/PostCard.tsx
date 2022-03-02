@@ -48,8 +48,8 @@ const PostCard: PostCard = ({ ...props }) => (
           <div className="absolute top-4 left-4 font-bold break-words capitalize text-slate-100/80">
             {props.post.title}
           </div>
-          {/* <div className="absolute bottom-4 left-4 flex gap-2 mt-2 items-center">
-            {props.post?.owner && (
+          <div className="absolute bottom-4 left-4 flex gap-2 mt-2 items-center">
+            {props?.post?.owner?.picture && (
               <Image
                 className="rounded-full object-cover"
                 src={props.post.owner.picture}
@@ -61,7 +61,7 @@ const PostCard: PostCard = ({ ...props }) => (
             <p className="font-semibold capitalize text-slate-100/80">
               {props.post.owner.username}
             </p>
-          </div> */}
+          </div>
         </div>
       </article>
     </Link>

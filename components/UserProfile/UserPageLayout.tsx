@@ -2,6 +2,7 @@ import React from 'react';
 import { UserProfileInfos } from './UserProfileInfos';
 import PostCard from '@/PostCard';
 import UserStats from './UserStats';
+import UserLists from './UserLists';
 
 type UserPageLayoutProps = {
   path: 'posts' | 'likes' | 'followers' | 'following';
@@ -18,19 +19,35 @@ const UserPageLayout: UserPageLayout = ({ user, path }) => {
     switch (path) {
       case 'posts':
         return (
-          user?.posts && (
-            user?.posts.map((p) => <PostCard key={p.id} post={p} />)
-          )
+          <div className="bg-base-200 rounded-xl p-5">
+            <div className="relative grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full auto-rows-max">
+              {user?.posts && (
+                user?.posts.map((p) => <PostCard key={p.id} post={p} />))}
+            </div>
+          </div>
         )
       case 'likes':
         return (
-          user.likedPosts ? (
-            user.likedPosts.map((p) => <PostCard key={p.id} post={p} />)
-          ) : <>No liked Posts</>
+          <div className="bg-base-200 rounded-xl p-5">
+            <div className="relative grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full auto-rows-max">
+              {user.likedPosts ? (
+                user.likedPosts.map((p) => <PostCard key={p.id} post={p} />)
+              ) : <> No liked Posts </>}
+            </div>
+          </div>
         )
       case 'followers':
         return (
-          <>followers</>
+          <div className="flex flex-col container max-w-md mt-10 mx-auto w-full items-center justify-center bg-white dark:bg-gray-800 rounded-lg shadow">
+            <ul className="flex flex-col divide-y w-full">
+              {
+                user.followers ? (
+                  user.followers.map((user) => <UserLists key={user.id} user={user} />)
+                ) : <> No Followers</>
+              }
+            </ul>
+          </div>
+
         )
       case 'following':
         return (
