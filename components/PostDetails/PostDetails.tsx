@@ -29,6 +29,12 @@ const PostDetails: PostDetails = ({ id }) => {
       console.log(err);
     }
   };
+
+  const handleLikeChange = async (hasLiked: boolean) => {
+    const count = hasLiked ? post.countLikes + 1 : post.countLikes - 1;
+    mutate({ ...post, countLikes: count });
+  };
+
   return (
     <div className={styles['content-view']}>
       <div className={styles['content-image']}>
@@ -42,7 +48,11 @@ const PostDetails: PostDetails = ({ id }) => {
       <div className={styles['content-sidebar']}>
         <div className="relative overflow-hidden p-2 h-full bg-gradient-to-tr from-base-100 to-base-300">
           <div className="overflow-y-auto overflow-x-hidden scroll-smooth scroll-py-6 h-full scrollbar scrollbar-thin scrollbar-thumb-slate-900">
-            <Sidebar post={post} onSendComment={handleSendComment} />
+            <Sidebar
+              post={post}
+              onSendComment={handleSendComment}
+              onLikeChange={handleLikeChange}
+            />
           </div>
         </div>
       </div>

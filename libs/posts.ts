@@ -30,6 +30,16 @@ export const commentOnPostId = async (
 };
 
 // Mettre celui pour like
+export const hasLiked = async (accessToken: string, idPost: string) => {
+  const res = await axiosBackend.get(`/api/p/${idPost}/like`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return res.data as { hasLiked: boolean };
+};
+
+// Mettre celui pour like
 export const addLike = async (accessToken: string, idPost: string) => {
   await axiosBackend.post(`/api/p/${idPost}/like`, null, {
     headers: {
