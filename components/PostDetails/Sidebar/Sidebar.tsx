@@ -15,6 +15,7 @@ const Sidebar: Sidebar = ({ post, onSendComment }) => {
     <div className="flex flex-col font-sans antialiased p-2 w-full">
       <PostInformation
         title={post.title}
+        id={post.id}
         description={post.description}
         meta={post.meta}
       />

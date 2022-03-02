@@ -53,6 +53,10 @@ declare type User = {
   likedPosts: Post[];
   followers: User[];
   following: User[];
+  countPosts: number;
+  countLikedPosts: number;
+  countFollowers: number;
+  countFollowings: number;
 };
 
 type PostVisibility = 'public' | 'private';

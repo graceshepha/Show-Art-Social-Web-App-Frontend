@@ -29,6 +29,24 @@ export const commentOnPostId = async (
   return res.data;
 };
 
+// Mettre celui pour like
+export const addLike = async (accessToken: string, idPost: string) => {
+  await axiosBackend.post(`/api/p/${idPost}/like`, null, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
+// Mettre celui pour unlike
+export const removeLike = async (accessToken: string, idPost: string) => {
+  await axiosBackend.delete(`/api/p/${idPost}/like`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+};
+
 export const registerView = async (id: string) => {
   await axiosBackend.post(`/api/p/${id}/view`);
 };
