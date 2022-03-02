@@ -28,7 +28,7 @@ const NavBaritemProfile = () => {
         </div>
         <div className="divider"></div>
         <li className="text-white">
-          <Link href="/me" passHref>
+          <Link href={`/user/${user?.nickname}`} passHref>
             <a>Your profile</a>
           </Link>
         </li>

@@ -1,36 +1,37 @@
 import React from "react";
 import Link from "next/link";
-import { IconContext } from "react-icons";
 import { BiLink } from 'react-icons/bi';
 import { MdOutlineFacebook } from 'react-icons/md';
 import { IoLogoTwitter } from 'react-icons/io';
 
-type SocialProfileProps = Pick<UserDetails, 'socials'>;
+type SocialProfileProps = {
+  user: User;
+};
 
 type SocialProfile = (
   props: SocialProfileProps
 ) => React.ReactElement<SocialProfileProps>;
 
-const SocialProfile: SocialProfile = ({ socials }) => (
+const SocialProfile: SocialProfile = ({ user }) => (
   <>
-    {socials && (
+    {user.details?.socials && (
       <div className="flex flex-nowrap">
         <div>
-          {socials.facebook && (
-            <Link href={socials.facebook} passHref>
+          {user.details.socials.facebook && (
+            <Link href={user.details.socials.facebook} passHref>
               <MdOutlineFacebook />
             </Link>)}
         </div>
         <div>
-          {socials.twitter && (
-            <Link href={socials.twitter} passHref>
+          {user.details.socials.twitter && (
+            <Link href={user.details.socials.twitter} passHref>
               <IoLogoTwitter />
             </Link>
           )}
         </div>
         <div>
-          {socials.website && (
-            <Link href={socials.website} passHref>
+          {user.details.socials.website && (
+            <Link href={user.details.socials.website} passHref>
             <BiLink />
           </Link>
           )}

@@ -2,6 +2,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import ActiveLink from '@/NavBar/ActiveLink';
 import NavBaritemProfile from '@/NavBar/NavBarItemProfile';
+import { BsFillPlusSquareFill } from 'react-icons/bs'
 
 type navItem = {
   name: string;
@@ -11,7 +12,6 @@ type navItem = {
 const navigation: navItem[] = [
   { name: 'Home', href: '/' },
   { name: 'Gallery', href: '/gallery' },
-  { name: 'Topics', href: '/topics' },
 ];
 
 /**
@@ -60,7 +60,16 @@ export default function NavBar() {
             </Link>
           </button>
         ) : (
-          <NavBaritemProfile />
+          <>
+            <Link href={'/post/new'} passHref>
+              <a className="btn px-8 btn-ghost btn-lg rounded-btn text-gray-400">
+                <BsFillPlusSquareFill />
+              </a>
+            </Link>
+
+            <NavBaritemProfile />
+          </>
+
         )}
       </div>
     </nav>
