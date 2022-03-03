@@ -1,33 +1,14 @@
-import { NextPage } from 'next'
-import Nav from '../components/NavBar'
+import { NextPage } from 'next';
 
-const Home: NextPage = () => (
-  <div>
-    <Nav/>
-    <p>Hello, Im the home page</p>
-  </div>
-)
-
-export default Home
-/* import type { NextPage } from 'next'
-import { useUser } from '@auth0/nextjs-auth0'
-import NavBar from '../components/NavBar'
-
+/**
+ * La page d'acceuil.
+ */
 const Home: NextPage = () => {
-  const { user, error, isLoading } = useUser();
-
   return (
     <div>
-      <div>
-        <NavBar/>
-      </div>
-        <p>
-          {JSON.stringify(user)}
-        </p>
-
+      <h1 className="text-5xl">HOMEPAGE</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Home
- */
+export default Home;
