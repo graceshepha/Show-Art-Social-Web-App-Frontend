@@ -20,5 +20,14 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "typedocOptions": {
+    "entryPoints": ["pages", "components", "data", "libs"],
+    "entryPointStrategy": "expand",
+    "out": "docs",
+    "darkHighlightTheme": "dark-plus",
+    "readme": "./README.md",
+    "externalPattern": ["node_modules/**/*.ts"],
+    "exclude": ["styles", ".next"]
+  }
 }
