@@ -4,6 +4,11 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import UserPageLayout from '@/UserProfile/UserPageLayout';
 
 
+/**
+ * La page des posts liked par l'utilisateur connecté.
+ *
+ * @author Bly Grace Schephatia
+ */
 const LikesPage: NextPage = () => {
   const { user } = useUser();
   if (!user) return <></>

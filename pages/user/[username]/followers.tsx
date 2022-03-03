@@ -3,7 +3,11 @@ import { useUser } from 'data/use-user';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import UserPageLayout from '@/UserProfile/UserPageLayout';
 
-
+/**
+ * La page des followers de l'utilisateur connecté.
+ *
+ * @author Bly Grace Schephatia
+ */
 const FollowersPage: NextPage = () => {
   const { user } = useUser();
   if (!user) return <></>
