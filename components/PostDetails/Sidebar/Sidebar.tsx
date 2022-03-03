@@ -11,20 +11,23 @@ type SidebarProps = {
 
 type Sidebar = (props: SidebarProps) => React.ReactElement<SidebarProps>;
 
-const Sidebar: Sidebar = ({ post, onSendComment, onLikeChange }) => {
-  return (
-    <div className="flex flex-col font-sans antialiased p-2 w-full">
-      <PostInformation
-        id={post.id}
-        title={post.title}
-        description={post.description}
-        meta={post.meta}
-        onLikeChange={onLikeChange}
-      />
-      <UserProfile user={post.owner} />
-      <CommentSection comments={post.comments} onSendComment={onSendComment} />
-    </div>
-  );
-};
+/**
+ * Composant pour le sidebar avec toutes les informations du post, l'utilisateur et les commentaires.
+ *
+ * @author Roger Montero
+ */
+const Sidebar: Sidebar = ({ post, onSendComment, onLikeChange }) => (
+  <div className="flex flex-col font-sans antialiased p-2 w-full">
+    <PostInformation
+      id={post.id}
+      title={post.title}
+      description={post.description}
+      meta={post.meta}
+      onLikeChange={onLikeChange}
+    />
+    <UserProfile user={post.owner} />
+    <CommentSection comments={post.comments} onSendComment={onSendComment} />
+  </div>
+);
 
 export default Sidebar;

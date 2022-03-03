@@ -1,21 +1,25 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import ActiveLink from '@/NavBar/ActiveLink';
 import NavBaritemProfile from '@/NavBar/NavBarItemProfile';
-import { BsFillPlusSquareFill } from 'react-icons/bs'
+import { BsFillPlusSquareFill } from 'react-icons/bs';
 
 type navItem = {
   name: string;
   href: string;
 };
 
+/**
+ * Une liste d'élément à montrer dans la barre de navigation.
+ */
 const navigation: navItem[] = [
   { name: 'Home', href: '/' },
   { name: 'Gallery', href: '/gallery' },
 ];
 
 /**
- * NavBar Componenent
+ * Composant pour la barre de navigation.
  *
  * @author Bly Grâce Schephatia
  */
@@ -55,21 +59,18 @@ export default function NavBar() {
 
         {!user ? (
           <button className="btn">
-            <Link href="/api/auth/login" passHref>
-              Sign In
-            </Link>
+            <a href="/api/auth/login">Sign In</a>
           </button>
         ) : (
           <>
             <Link href={'/post/new'} passHref>
-              <a className="btn px-8 btn-ghost btn-lg rounded-btn text-gray-400">
+              <a className="btn px-8 btn-ghost bg-transparent btn-lg rounded-btn text-gray-400">
                 <BsFillPlusSquareFill />
               </a>
             </Link>
 
             <NavBaritemProfile />
           </>
-
         )}
       </div>
     </nav>

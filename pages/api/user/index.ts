@@ -3,6 +3,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getAccessToken } from '@auth0/nextjs-auth0';
 import { testErrors } from 'libs/commons';
 
+/**
+ * La route qui va être appeler lorsqu'on veux fetch les informations de l'utilisateur.
+ *
+ * @author Bly, Grâce Schephatia
+ */
 const handleGetUserProfile = async (
   req: NextApiRequest,
   res: NextApiResponse

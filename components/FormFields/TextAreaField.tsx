@@ -6,6 +6,7 @@ type GetClasses = (v: {
   error?: string | string[] | boolean;
 }) => string;
 
+/** @ignore */
 const getClasses: GetClasses = ({ className, error }) => {
   const c = className || '';
   return classNames({

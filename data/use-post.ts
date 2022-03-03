@@ -1,6 +1,12 @@
 import useSWR from 'swr';
 import { fetcherPathId, KeyPathId, CustomError } from './fetchers';
 
+/**
+ * Fonction à utiliser lorsqu'on veut fetch les informations d'un post.
+ * @param postId id du post à chercher
+ * @returns Un object avec les propriétés retournés par {@link useSWR SWR} pour voir l'information
+ * @author Roger Montero
+ */
 export const usePost = (postId: string) => {
   const { data, error, mutate } = useSWR<Post, CustomError, KeyPathId<'posts'>>(
     ['posts', postId],

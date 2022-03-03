@@ -9,7 +9,7 @@ type ActiveLinkProps = LinkProps & {
 };
 
 /**
- * NavBar ActiveLink attribute set up
+ * Composant {@link Link} qui donne une classe à l'enfant lorsqu'il est actif.
  *
  * @author Bly, Grâce Schephatia
  */

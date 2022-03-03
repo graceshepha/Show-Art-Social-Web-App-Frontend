@@ -4,8 +4,9 @@ import { hasLiked, addLike, removeLike } from 'libs/posts';
 import { testErrors } from 'libs/commons';
 
 /**
- * Fonction de la route qui permet de voir si l'utilisateur à déjà like un post.
- * @author My-Anh Chau
+ * Le GET de la route qui permet de voir si l'utilisateur à déjà like un post.
+ *
+ * @author Roger Montero
  */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { accessToken } = await getAccessToken(req, res);
@@ -21,7 +22,8 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 /**
- * Fonction de la route qui permet d'ajouter un like à un post.
+ * Le POST de la route qui permet d'ajouter un like à un post.
+ *
  * @author My-Anh Chau
  */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -38,7 +40,8 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 /**
- * Fonction de la route qui permet de supprimer un like du post.
+ * Le DELETE de la route qui permet de supprimer un like du post.
+ *
  * @author My-Anh Chau
  */
 const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -55,18 +58,15 @@ const handleDelete = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 /**
- * Le enpoint qui va guider la requête à partir de sa méthode.
- * @author My-Anh Chau
+ * La fonction qui va diriger les requêtes dépendamment de sa méthode.
  */
 const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   // methode de la requete
   switch (req.method) {
     case 'GET':
-      // prendre la fct quil va faire
       await withApiAuthRequired(handleGet)(req, res);
       break;
     case 'POST':
-      // prendre la fct quil va faire
       await withApiAuthRequired(handlePost)(req, res);
       break;
     case 'DELETE':

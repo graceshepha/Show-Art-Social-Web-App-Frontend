@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
-import { useUser } from '@auth0/nextjs-auth0';
 
+/**
+ * La page d'acceuil.
+ */
 const Home: NextPage = () => {
-  const { user, isLoading } = useUser();
-
   return (
     <div>
-      <p>{JSON.stringify(user)}</p>
+      <h1 className="text-5xl">HOMEPAGE</h1>
     </div>
   );
 };

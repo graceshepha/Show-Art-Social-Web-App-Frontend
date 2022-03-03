@@ -2,21 +2,20 @@ import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import Navbar from '@/NavBar/NavBar';
 
-/**
- * @description
- * Layout of the app
- *
- * @author Bly, Grâce Schephatia
- *
- */
 type Props = {
   children: ReactNode;
   title?: string;
   description?: string;
 };
 
+/** @ignore */
 const DEFAULT_SITE_TITLE = 'Art showcase';
 
+/**
+ * Layout de l'application.
+ *
+ * @author Bly, Grâce Schephatia
+ */
 const Layout = ({ children, title, description }: Props) => (
   <>
     <Head>

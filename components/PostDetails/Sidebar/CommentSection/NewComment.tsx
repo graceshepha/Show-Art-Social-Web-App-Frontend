@@ -9,6 +9,11 @@ type NewCommentProps = {
   onSendComment: (comment: string) => void;
 };
 
+/**
+ * Composant pour le input d'un nouveau commentaire.
+ *
+ * @author Roger Montero
+ */
 type NewComment = (
   props: NewCommentProps
 ) => React.ReactElement<NewCommentProps>;
@@ -22,6 +27,13 @@ const NewComment: NewComment = ({ onSendComment }) => {
     else setComment('');
   }, [user, isLoading]);
 
+  if (isLoading) return <Loading />;
+
+  /**
+   * Fonction pour ajouter un commentaire au post.
+   *
+   * @author Roger Montero
+   */
   const handleSend = async () => {
     if (comment.trim().length === 0 || !user) return;
     try {
@@ -31,8 +43,6 @@ const NewComment: NewComment = ({ onSendComment }) => {
       console.log(err);
     }
   };
-
-  if (isLoading) return <Loading />;
 
   return (
     <div className="relative flex my-2 group">

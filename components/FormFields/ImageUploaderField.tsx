@@ -15,6 +15,7 @@ type ImageUploaderField = (
   props: ImageUploaderFieldProps
 ) => React.ReactElement<ImageUploaderField>;
 
+/** @ignore */
 const PREVIEW_SIZE = 200;
 
 /**
@@ -30,6 +31,11 @@ const ImageUploaderField: ImageUploaderField = ({
   accept,
   ...props
 }) => {
+  /**
+   * Fonction pour permettre le drop des fichiers.
+   *
+   * @author Roger Montero
+   */
   const onDropHandler: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
 
@@ -44,6 +50,11 @@ const ImageUploaderField: ImageUploaderField = ({
     }
   };
 
+  /**
+   * Fonction pour l'ajout d'un fichier.
+   *
+   * @author Roger Montero
+   */
   const onChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
 

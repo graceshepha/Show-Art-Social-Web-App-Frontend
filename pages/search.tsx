@@ -4,6 +4,11 @@ import ListPosts from '@/ListPosts';
 import { useSearch } from 'data/use-search';
 import Loading from '@/Loading';
 
+/**
+ * La page avec le resultat d'un search.
+ *
+ * @author Roger Montero
+ */
 const SearchPage: NextPage = () => {
   const router = useRouter();
   const { q } = router.query;

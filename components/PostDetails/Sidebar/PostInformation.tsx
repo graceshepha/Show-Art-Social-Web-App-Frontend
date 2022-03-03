@@ -16,6 +16,11 @@ type PostInformation = (
 const fetcherLiked = (url: string) =>
   axiosApi.get<{ hasLiked: boolean }>(url).then((res) => res.data.hasLiked);
 
+/**
+ * Composant pour afficher toutes les informations du post.
+ *
+ * @author Roger Montero
+ */
 const PostInformation: PostInformation = ({
   id,
   title,
@@ -29,6 +34,11 @@ const PostInformation: PostInformation = ({
     fetcherLiked
   );
 
+  /**
+   * Fonction pour ajouter un like du post.
+   *
+   * @author My-Anh Chau
+   */
   const likes = async () => {
     try {
       await axiosApi.post(`/api/posts/${id}/like`);
@@ -38,6 +48,12 @@ const PostInformation: PostInformation = ({
       console.error(err);
     }
   };
+
+  /**
+   * Fonction pour enlever son like du post.
+   *
+   * @author My-Anh Chau
+   */
   const unlike = async () => {
     try {
       await axiosApi.delete(`/api/posts/${id}/like`);

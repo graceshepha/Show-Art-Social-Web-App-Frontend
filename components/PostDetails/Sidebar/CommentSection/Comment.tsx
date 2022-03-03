@@ -6,6 +6,11 @@ type CommentProps = Pick<PostComment, 'user' | 'comment' | 'date'>;
 
 type Comment = (props: CommentProps) => React.ReactElement<CommentProps>;
 
+/**
+ * Composant pour chaque commentaire.
+ *
+ * @author Roger Montero
+ */
 const Comment: Comment = ({ user, comment, date }) => {
   const formattedDate = () =>
     new Date(date).toLocaleDateString('en-US', {

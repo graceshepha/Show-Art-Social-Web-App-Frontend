@@ -30,9 +30,13 @@ type NewPostForm = (
   props: NewPostFormProps
 ) => React.ReactElement<NewPostFormProps>;
 
+/** @ignore */
 const TITLE = 'Create a new post';
+/** @ignore */
 const MAX_SIZE = 10; // IN MB
+/** @ignore */
 const FILE_SIZE = MAX_SIZE * 1024 * 1024;
+/** @ignore */
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/gif', 'image/png'];
 
 /**
