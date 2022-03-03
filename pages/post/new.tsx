@@ -6,9 +6,19 @@ import NewPostForm, { HandleSubmit } from '@/NewPostForm';
 import { axiosApi } from 'libs/commons';
 import Loading from '@/Loading';
 
+/**
+ * La page pour ajouter un nouveau post.
+ *
+ * @author Roger Montero
+ */
 const NewPostPage: NextPage = () => {
   const { isLoading } = useUser();
 
+  /**
+   * Fonction pour envoyer les informations du nouveau post.
+   *
+   * @author Roger Montero
+   */
   const handleFormSubmit: HandleSubmit = async (values, helpers) => {
     const formData = new FormData();
 

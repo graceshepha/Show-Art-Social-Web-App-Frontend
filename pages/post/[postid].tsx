@@ -5,6 +5,7 @@ import { SWRConfig, unstable_serialize } from 'swr';
 import PostDetails from '@/PostDetails/PostDetails';
 import { getPostDetailsById } from 'libs/posts';
 import { axiosApi } from 'libs/commons';
+import Loading from '@/Loading';
 
 type PostPageProps = {
   fallback: {
@@ -42,6 +43,11 @@ export const getStaticProps: GetStaticProps<PostPageProps> = async ({
   }
 };
 
+/**
+ * La page détail d'un post.
+ *
+ * @author Roger Montero
+ */
 const PostPage = ({
   fallback,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -60,7 +66,7 @@ const PostPage = ({
   }, [postid]);
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

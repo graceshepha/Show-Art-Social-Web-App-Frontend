@@ -1,5 +1,5 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 import { BiLink } from 'react-icons/bi';
 import { MdOutlineFacebook } from 'react-icons/md';
 import { IoLogoTwitter } from 'react-icons/io';
@@ -12,6 +12,11 @@ type SocialProfile = (
   props: SocialProfileProps
 ) => React.ReactElement<SocialProfileProps>;
 
+/**
+ * Composant pour les médias sociaux d'un utilisateur
+ *
+ * @author Bly Grâce Schephatia
+ */
 const SocialProfile: SocialProfile = ({ user }) => (
   <>
     {user.details?.socials && (
@@ -20,7 +25,8 @@ const SocialProfile: SocialProfile = ({ user }) => (
           {user.details.socials.facebook && (
             <Link href={user.details.socials.facebook} passHref>
               <MdOutlineFacebook />
-            </Link>)}
+            </Link>
+          )}
         </div>
         <div>
           {user.details.socials.twitter && (
@@ -32,8 +38,8 @@ const SocialProfile: SocialProfile = ({ user }) => (
         <div>
           {user.details.socials.website && (
             <Link href={user.details.socials.website} passHref>
-            <BiLink />
-          </Link>
+              <BiLink />
+            </Link>
           )}
         </div>
       </div>

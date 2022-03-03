@@ -10,6 +10,11 @@ type CommentSection = (
   props: CommentSectionProps
 ) => React.ReactElement<CommentSectionProps>;
 
+/**
+ * Composant pour la section des commentaires.
+ *
+ * @author Roger Montero
+ */
 const CommentSection: CommentSection = ({ comments, onSendComment }) => {
   return (
     <div className="prose prose-zinc dark:prose-invert p-5 max-w-full">

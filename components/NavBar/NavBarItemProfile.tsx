@@ -1,7 +1,13 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Image from 'next/image';
 import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0';
 
+/**
+ * Composant de la barre de navigation pour afficher un l'utilisateur connecté.
+ *
+ * @author Bly Grâce Schephatia
+ */
 const NavBaritemProfile = () => {
   const { user } = useUser();
   return (
@@ -33,9 +39,7 @@ const NavBaritemProfile = () => {
           </Link>
         </li>
         <li className="text-white">
-          <Link href="/api/auth/logout" passHref>
-            <a>Sign Out</a>
-          </Link>
+          <a href="/api/auth/logout">Sign Out</a>
         </li>
       </ul>
     </div>

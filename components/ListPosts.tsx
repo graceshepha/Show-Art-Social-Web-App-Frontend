@@ -9,7 +9,7 @@ type ListPostsProps = {
 type ListPosts = (props: ListPostsProps) => React.ReactElement<ListPostsProps>;
 
 /**
- * Composant pour afficher une liste de publications
+ * Composant pour afficher une liste de posts
  *
  * @author Roger Montero
  */

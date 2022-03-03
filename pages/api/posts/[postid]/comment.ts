@@ -3,6 +3,11 @@ import { testErrors } from 'libs/commons';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getAccessToken, withApiAuthRequired } from '@auth0/nextjs-auth0';
 
+/**
+ * Le POST de la route qui permet d'ajouter un commentaire à post.
+ *
+ * @author Roger Montero
+ */
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   const { accessToken } = await getAccessToken(req, res);
   const { postid } = req.query as { postid: string };
@@ -17,6 +22,9 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * La fonction qui va diriger les requêtes dépendamment de sa méthode.
+ */
 const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'POST':

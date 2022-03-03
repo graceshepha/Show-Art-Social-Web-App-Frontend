@@ -14,6 +14,15 @@ type Paths = keyof PathsMap;
 
 export type KeyPathId<Path extends Paths> = [P: Path, I: string];
 
+/**
+ * Function fetcher pour SWR qui va fetch soit un `Post` ou un `User`
+ * apartir d'un id.
+ *
+ * Dans le cas d'un utilisateur, le id est son username.
+ * @typeParam Path la route à utiliser, soit `'posts'` ou `'user'`
+ * @param path route pour fetch les informations
+ * @param id clé pour identifier l'objet à fetch.
+ */
 export const fetcherPathId = async <Path extends Paths>(
   path: Path,
   id: string

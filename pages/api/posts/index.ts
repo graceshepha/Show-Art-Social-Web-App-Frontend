@@ -5,6 +5,7 @@ import { getPostPage } from 'libs/posts';
 import { BACKEND_URL } from 'libs/commons';
 import { testErrors } from 'libs/commons';
 
+/** @ignore */
 export const config = {
   api: {
     bodyParser: false,
@@ -12,22 +13,11 @@ export const config = {
   },
 };
 
-const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { accessToken } = await getAccessToken(req, res, {
-    scopes: ['openid', 'profile', 'email'],
-  });
-  req.headers.authorization = `Bearer ${accessToken}`;
-  httpProxyMiddleware(req, res, {
-    target: BACKEND_URL,
-    pathRewrite: [
-      {
-        patternStr: '^/api/posts',
-        replaceStr: '/api/p',
-      },
-    ],
-  });
-};
-
+/**
+ * Le GET de la route qui va être appeler lorsqu'on veut obtenir tous les posts.
+ *
+ * @author Roger Montero
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   // get number page
   const { p, s } = req.query;
@@ -44,6 +34,30 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * Le POST de la route qui va être appeler lorsqu'on veux ajouter un post.
+ *
+ * @author Roger Montero
+ */
+const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { accessToken } = await getAccessToken(req, res, {
+    scopes: ['openid', 'profile', 'email'],
+  });
+  req.headers.authorization = `Bearer ${accessToken}`;
+  httpProxyMiddleware(req, res, {
+    target: BACKEND_URL,
+    pathRewrite: [
+      {
+        patternStr: '^/api/posts',
+        replaceStr: '/api/p',
+      },
+    ],
+  });
+};
+
+/**
+ * La fonction qui va diriger les requêtes dépendamment de sa méthode.
+ */
 const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':

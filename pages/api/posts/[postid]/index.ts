@@ -2,6 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { testErrors } from 'libs/commons';
 import { getPostDetailsById } from 'libs/posts';
 
+/**
+ * Le GET de la route qui va être appeler lorsqu'on obtenir les détails d'un post.
+ *
+ * @author Roger Montero
+ */
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postid } = req.query as { postid: string };
 
@@ -14,6 +19,9 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+/**
+ * La fonction qui va diriger les requêtes dépendamment de sa méthode.
+ */
 const endpoint = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':

@@ -6,6 +6,12 @@ import {
 } from '@auth0/nextjs-auth0';
 import { axiosBackend, testErrors } from 'libs/commons';
 
+/**
+ * Fonction qui va envoyer les informations d'un utilisateurs au backend de notre application
+ * au moment de la connexion d'un utilisateur.
+ *
+ * @author Roger Montero
+ */
 const afterCallback: AfterCallback = async (req, res, session) => {
   const user: UserProfile = session.user;
 
