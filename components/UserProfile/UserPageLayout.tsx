@@ -8,6 +8,7 @@ type UserPageLayoutProps = {
   path: 'posts' | 'likes' | 'followers' | 'following';
   user: User
 };
+
 type UserPageLayout = (
   props: UserPageLayoutProps
 ) => React.ReactElement<UserPageLayoutProps>;
