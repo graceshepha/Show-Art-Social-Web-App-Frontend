@@ -27,12 +27,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<PostPageProps> = async ({
   params,
 }) => {
-  // If the route is like /post/1, then params.postid is 1
   const id = params?.postid as string;
-  // Fetch static info less likely to update
   try {
     const post = await getPostDetailsById(id);
-
     return {
       props: {
         fallback: {

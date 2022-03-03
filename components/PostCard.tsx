@@ -3,7 +3,6 @@
 // import ActiveLink2 from '@/ActiveLink'; // ou utiliser le `@/` a la place qui est traduit a `components/`
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 
 /*
 ########### TYPING PROPS #################
